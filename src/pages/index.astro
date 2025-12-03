@@ -1,114 +1,457 @@
 ---
-const featuresBorrower = [
-  "Request crypto loans directly from real lenders.",
-  "Use stablecoins like USDT, USDC or DAI — wallet to wallet.",
-  "Back your loan with crypto collateral or tokenized real assets.",
-  "Negotiate terms and repay transparently on–chain.",
+/**
+ * Mock data – swap this with real DB/API later.
+ */
+const listings = [
+  {
+    id: 1,
+    title: "Lend 1.5 ETH for 30 days",
+    type: "crypto",
+    symbol: "ETH",
+    amount: 1.5,
+    rate: 5.2,
+    duration: 30,
+    collateral: 150,
+    lender: "NodeMaster"
+  },
+  {
+    id: 2,
+    title: "0.35 BTC short term loan",
+    type: "crypto",
+    symbol: "BTC",
+    amount: 0.35,
+    rate: 4.8,
+    duration: 21,
+    collateral: 140,
+    lender: "ChainBridge"
+  },
+  {
+    id: 3,
+    title: "Rent rare game NFT skin",
+    type: "digital",
+    symbol: "NFT",
+    amount: 1,
+    rate: 3.0,
+    duration: 14,
+    collateral: 200,
+    lender: "PixelVault"
+  },
+  {
+    id: 4,
+    title: "High-end RTX 4090 rig rental",
+    type: "physical",
+    symbol: "PC",
+    amount: 1,
+    rate: 9.0,
+    duration: 7,
+    collateral: 250,
+    lender: "RigHub",
+    location: "Oslo, Norway"
+  }
 ];
 
-const featuresLender = [
-  "Earn yield by lending stablecoins to real people and projects.",
-  "Invest in tokenized deals backed by real–world assets.",
-  "Always keep crypto in your own wallet — no custody, no banks.",
-  "Choose your risk level, yield, and duration.",
-];
-
-// Your initial price object
-let prices = {
-  BTC: null,
-  ETH: null,
-  SOL: null,
-};
+const cryptoListings   = listings.filter(l => l.type === "crypto");
+const digitalListings  = listings.filter(l => l.type === "digital");
+const physicalListings = listings.filter(l => l.type === "physical");
 ---
 
-<main style="
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: system-ui, sans-serif;
-  padding: 2rem;
-  background: #020617;
-  color: #e5e7eb;
-  text-align: center;
-">
-  <section style="
-    max-width: 720px;
-    width: 100%;
-    background: rgba(15, 23, 42, 0.85);
-    border-radius: 1.5rem;
-    padding: 2.5rem 2rem;
-    border: 1px solid rgba(148, 163, 184, 0.3);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(14px);
-  ">
-    <h1 style="font-size: 2.6rem; margin-bottom: 1.2rem; font-weight: 700;">
-      Amicbridge
-    </h1>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>AmicBridge — Lend & Rent Any Asset</title>
+    <!-- Lightweight CSS framework for quick styling -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@latest/css/pico.min.css"
+    />
+    <style>
+      :root {
+        --accent: #4c6fff;
+        --accent-soft: #e3e7ff;
+      }
 
-    <p style="color:#cbd5e1; margin-bottom:1.5rem;">
-      Peer-to-peer lending with crypto. No banks. No intermediaries.
-    </p>
+      body {
+        background: #f4f4f7;
+      }
 
-    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
-      Borrower Features
-    </h2>
-    <ul style="text-align:left; margin:auto; max-width:500px; line-height:1.6;">
-      {featuresBorrower.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
+      header.hero {
+        padding: 3.5rem 1rem 2.5rem;
+        text-align: center;
+        background: radial-gradient(circle at top, #1b1f3b 0, #050613 50%, #000 100%);
+        color: #fff;
+        margin-bottom: 2rem;
+      }
 
-    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
-      Lender Features
-    </h2>
-    <ul style="text-align:left; margin:auto; max-width:500px; line-height:1.6;">
-      {featuresLender.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
+      header.hero h1 {
+        font-size: clamp(2.2rem, 4vw, 2.9rem);
+        margin-bottom: 0.5rem;
+      }
 
-    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
-      Crypto Prices
-    </h2>
+      header.hero p.lead {
+        max-width: 600px;
+        margin: 0.5rem auto 1.5rem;
+        font-size: 1.05rem;
+        opacity: 0.9;
+      }
 
-    <div id="price-box" style="margin-top:1rem; color:#94a3b8;">
-      Loading prices…
-    </div>
-  </section>
+      .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
 
-  <footer style="margin-top:2rem; font-size:0.85rem; color:#94a3b8;">
-    Built with Astro — no SolidJS required 🚀
-  </footer>
-</main>
+      .hero-buttons a button {
+        margin: 0;
+      }
 
-<!-- Runs after page load -->
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    // Example: fetch prices and update DOM
-    try {
-      const res = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd"
-      );
-      const data = await res.json();
+      .hero-tagline {
+        margin-top: 1.5rem;
+        font-size: 0.95rem;
+        opacity: 0.8;
+      }
 
-      const prices = {
-        BTC: data.bitcoin?.usd,
-        ETH: data.ethereum?.usd,
-        SOL: data.solana?.usd,
-      };
+      main.container {
+        max-width: 1080px;
+        margin-inline: auto;
+        padding-inline: 1rem;
+      }
 
-      const el = document.getElementById("price-box");
-      el.innerHTML = `
-        <div>BTC: $${prices.BTC}</div>
-        <div>ETH: $${prices.ETH}</div>
-        <div>SOL: $${prices.SOL}</div>
-      `;
-    } catch (err) {
-      document.getElementById("price-box").innerHTML =
-        "Failed to load price data.";
-      console.error(err);
-    }
-  });
-</script>
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-header h2 {
+        margin: 0;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.1rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        background: var(--accent-soft);
+        color: #222;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.4rem;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.25rem 1.15rem;
+        box-shadow: 0 1px 5px rgba(0,0,0,.06);
+        border: 1px solid rgba(0,0,0,.03);
+        transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 18px rgba(0,0,0,.11);
+        border-color: rgba(76,111,255,.4);
+      }
+
+      .card-title {
+        font-size: 1.05rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .card-meta {
+        font-size: 0.85rem;
+        color: #555;
+        margin-bottom: 0.4rem;
+      }
+
+      .card-stats {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .card-footer {
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #666;
+      }
+
+      .chip {
+        padding: 0.12rem 0.5rem;
+        border-radius: 999px;
+        border: 1px solid rgba(0,0,0,.06);
+        font-size: 0.75rem;
+      }
+
+      .how-it-works {
+        margin: 3rem 0 2.5rem;
+      }
+
+      .how-grid {
+        display: grid;
+        gap: 1.4rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .hiw-step {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.25rem;
+        box-shadow: 0 1px 5px rgba(0,0,0,.05);
+        border: 1px solid rgba(0,0,0,.03);
+      }
+
+      .hiw-step h3 {
+        margin-top: 0;
+        font-size: 1.02rem;
+      }
+
+      .hiw-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: #111;
+        font-size: 0.8rem;
+        margin-right: 0.4rem;
+      }
+
+      .trust-section {
+        margin-bottom: 3rem;
+      }
+
+      .trust-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.06);
+        font-size: 0.8rem;
+        margin-right: 0.4rem;
+        margin-bottom: 0.25rem;
+      }
+
+      footer.page-footer {
+        text-align: center;
+        padding: 1.8rem 1rem 2.2rem;
+        font-size: 0.85rem;
+        color: #666;
+      }
+
+      @media (max-width: 640px) {
+        header.hero {
+          padding-top: 2.6rem;
+          padding-bottom: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HERO -->
+    <header class="hero">
+      <h1>AmicBridge</h1>
+      <p class="lead">
+        The marketplace where people can safely lend or rent out crypto, digital assets,
+        and real-world gear — while borrowers get fast, transparent access to what they need.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="/lend">
+          <button class="primary">Start lending</button>
+        </a>
+        <a href="/borrow">
+          <button class="secondary">Find an asset to borrow</button>
+        </a>
+      </div>
+
+      <p class="hero-tagline">
+        Earn from the assets you already own. Borrow with clear collateral and no surprise rules.
+      </p>
+    </header>
+
+    <main class="container">
+      <!-- CRYPTO LISTINGS -->
+      <section>
+        <div class="section-header">
+          <h2>Crypto lending offers</h2>
+          <span class="badge">Live demo data</span>
+        </div>
+        <p>
+          Lend or borrow major coins with over-collateralized terms and transparent rates.
+        </p>
+
+        {cryptoListings.length === 0 && (
+          <p>No crypto listings yet.</p>
+        )}
+
+        {cryptoListings.length > 0 && (
+          <div class="grid">
+            {cryptoListings.map((l) => (
+              <article class="card">
+                <h3 class="card-title">{l.title}</h3>
+                <div class="card-meta">
+                  Asset: {l.symbol} · Amount: {l.amount}
+                </div>
+                <div class="card-stats">
+                  Interest: <strong>{l.rate}% APR</strong><br />
+                  Duration: <strong>{l.duration} days</strong><br />
+                  Min collateral: <strong>{l.collateral}%</strong>
+                </div>
+                <div class="card-footer">
+                  <span>From: {l.lender}</span>
+                  <a href={`/listing/${l.id}`}>
+                    <button class="secondary outline" style="margin:0;">View</button>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- DIGITAL ASSETS -->
+      <section>
+        <div class="section-header">
+          <h2>Digital asset rentals</h2>
+          <span class="badge">NFTs, game items & more</span>
+        </div>
+        <p>
+          Temporarily rent out access to high-value digital items — or borrow them for a season,
+          tournament, or project.
+        </p>
+
+        {digitalListings.length === 0 && (
+          <p>No digital listings yet.</p>
+        )}
+
+        {digitalListings.length > 0 && (
+          <div class="grid">
+            {digitalListings.map((l) => (
+              <article class="card">
+                <h3 class="card-title">{l.title}</h3>
+                <div class="card-meta">
+                  Type: {l.symbol} · Duration: {l.duration} days
+                </div>
+                <div class="card-stats">
+                  Rate: <strong>{l.rate}%</strong> · Min collateral:
+                  <strong> {l.collateral}%</strong>
+                </div>
+                <div class="card-footer">
+                  <span>From: {l.lender}</span>
+                  <a href={`/listing/${l.id}`}>
+                    <button class="secondary outline" style="margin:0;">View</button>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- PHYSICAL ASSETS -->
+      <section>
+        <div class="section-header">
+          <h2>Physical gear rentals</h2>
+          <span class="badge">Real-world assets</span>
+        </div>
+        <p>
+          Rent out hardware and high-value equipment with clear deposits and location info.
+        </p>
+
+        {physicalListings.length === 0 && (
+          <p>No physical asset listings yet.</p>
+        )}
+
+        {physicalListings.length > 0 && (
+          <div class="grid">
+            {physicalListings.map((l) => (
+              <article class="card">
+                <h3 class="card-title">{l.title}</h3>
+                <div class="card-meta">
+                  {l.location ? `Location: ${l.location}` : "Location: flexible"}
+                </div>
+                <div class="card-stats">
+                  Duration: <strong>{l.duration} days</strong><br />
+                  Required deposit (collateral): <strong>{l.collateral}%</strong>
+                </div>
+                <div class="card-footer">
+                  <span>Owner: {l.lender}</span>
+                  <a href={`/listing/${l.id}`}>
+                    <button class="secondary outline" style="margin:0;">View</button>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="how-it-works">
+        <div class="section-header">
+          <h2>How AmicBridge works</h2>
+        </div>
+        <div class="how-grid">
+          <article class="hiw-step">
+            <h3><span class="hiw-badge">1</span> List or discover assets</h3>
+            <p>
+              Lenders register assets they’re willing to lend — crypto, digital, or physical.
+              Borrowers filter by type, rate, duration, and location.
+            </p>
+          </article>
+          <article class="hiw-step">
+            <h3><span class="hiw-badge">2</span> Agree on safe terms</h3>
+            <p>
+              Each listing defines interest, duration, and minimum collateral. Both sides see
+              everything clearly before they commit.
+            </p>
+          </article>
+          <article class="hiw-step">
+            <h3><span class="hiw-badge">3</span> Escrow & completion</h3>
+            <p>
+              Collateral or deposit is locked via escrow. Once the loan is repaid or asset
+              returned, funds are released automatically according to the rules.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- TRUST SECTION -->
+      <section class="trust-section">
+        <div class="section-header">
+          <h2>Why people trust AmicBridge</h2>
+        </div>
+        <p>
+          The goal is simple: become the safest, clearest place in the world to lend and rent
+          assets between people.
+        </p>
+        <div>
+          <span class="trust-pill">Reputation & rating system</span>
+          <span class="trust-pill">Over-collateralized loans</span>
+          <span class="trust-pill">Transparent terms — no hidden tricks</span>
+          <span class="trust-pill">Designed for both crypto & real-world assets</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      AmicBridge — unified lending & rental marketplace. Demo interface, not financial advice.
+    </footer>
+  </body>
+</html>
