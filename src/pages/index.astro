@@ -59,7 +59,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>AmicBridge — Lend & Rent Any Asset</title>
+    <title>AmicBridge — Lend & Borrow Assets Safely</title>
 
     <!-- Pico for base styling -->
     <link
@@ -71,10 +71,9 @@ const physicalListings = listings.filter(l => l.type === "physical");
       :root {
         --ab-bg: #050613;
         --ab-surface: #0c0f25;
-        --ab-soft-surface: #101429;
-        --ab-border: rgba(255,255,255,0.06);
         --ab-accent: #4c6fff;
-        --ab-accent-soft: rgba(76,111,255,0.1);
+        --ab-accent-soft: rgba(76,111,255,0.14);
+        --ab-border: rgba(255,255,255,0.08);
         --ab-text-soft: #a4a8c4;
         --ab-radius-lg: 18px;
       }
@@ -102,16 +101,17 @@ const physicalListings = listings.filter(l => l.type === "physical");
         backdrop-filter: blur(14px);
         background: linear-gradient(
           to bottom,
-          rgba(5,6,19,0.92),
-          rgba(5,6,19,0.82),
+          rgba(5,6,19,0.95),
+          rgba(5,6,19,0.85),
           transparent
         );
+        border-bottom: 1px solid rgba(255,255,255,0.06);
       }
 
       .nav-inner {
         max-width: 1120px;
         margin: 0 auto;
-        padding: 0.8rem 1.25rem;
+        padding: 0.7rem 1.25rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -122,6 +122,8 @@ const physicalListings = listings.filter(l => l.type === "physical");
         display: inline-flex;
         align-items: center;
         gap: 0.55rem;
+        text-decoration: none;
+        color: inherit;
       }
 
       .brand-mark {
@@ -194,15 +196,15 @@ const physicalListings = listings.filter(l => l.type === "physical");
       .hero {
         max-width: 1120px;
         margin: 0 auto;
-        padding: 2.8rem 1.25rem 2.2rem;
+        padding: 2.5rem 1.25rem 2.2rem;
         display: grid;
-        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.7fr);
-        gap: 2.4rem;
+        grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+        gap: 2.3rem;
         align-items: center;
       }
 
       .hero-main h1 {
-        font-size: clamp(2.2rem, 3.2vw, 2.8rem);
+        font-size: clamp(2.2rem, 3.2vw, 2.9rem);
         margin-bottom: 0.7rem;
       }
 
@@ -210,7 +212,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        padding: 0.18rem 0.55rem;
+        padding: 0.18rem 0.6rem;
         border-radius: 999px;
         background: rgba(13,19,58,0.9);
         border: 1px solid rgba(143,174,255,0.35);
@@ -258,6 +260,10 @@ const physicalListings = listings.filter(l => l.type === "physical");
         gap: 0.75rem;
         align-items: center;
         margin-bottom: 1rem;
+      }
+
+      .hero-actions a button {
+        margin: 0;
       }
 
       .hero-subline {
@@ -345,17 +351,15 @@ const physicalListings = listings.filter(l => l.type === "physical");
         border: 1px solid rgba(36,194,143,0.55);
       }
 
-      .confidence span {
-        font-size: 0.8rem;
-      }
-
-      /* MAIN CONTENT */
-
       main {
         max-width: 1120px;
         margin: 0 auto;
-        padding: 0 1.25rem 2.4rem;
+        padding: 0 1.25rem 2.6rem;
         flex: 1;
+      }
+
+      .section-block {
+        margin-top: 2.5rem;
       }
 
       .section-header {
@@ -388,6 +392,87 @@ const physicalListings = listings.filter(l => l.type === "physical");
         color: var(--ab-text-soft);
       }
 
+      /* LENDER SECTION */
+
+      .lender-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 1.4rem;
+      }
+
+      .action-card {
+        background: rgba(9,12,32,0.96);
+        border-radius: 14px;
+        padding: 1rem 1rem;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+        transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      }
+
+      .action-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(98,132,255,0.9);
+        box-shadow: 0 16px 32px rgba(7,8,40,0.9);
+      }
+
+      .action-card h3 {
+        font-size: 0.98rem;
+        margin-bottom: 0.35rem;
+      }
+
+      .action-card p {
+        font-size: 0.84rem;
+        color: var(--ab-text-soft);
+        margin-bottom: 0.8rem;
+      }
+
+      .action-card button {
+        margin: 0;
+        border-radius: 999px;
+        font-size: 0.8rem;
+      }
+
+      .muted {
+        color: var(--ab-text-soft);
+        font-size: 0.8rem;
+      }
+
+      /* BORROW SECTION */
+
+      .search-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-bottom: 1rem;
+        align-items: center;
+      }
+
+      .search-row input[type="search"] {
+        min-width: 220px;
+        flex: 1;
+        background: rgba(9,12,32,0.96);
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        padding-inline: 0.9rem;
+        font-size: 0.84rem;
+      }
+
+      .filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .filter-chip {
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(11,13,34,0.9);
+        font-size: 0.76rem;
+        color: var(--ab-text-soft);
+      }
+
       .listing-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -396,7 +481,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
       }
 
       .card {
-        background: rgba(9,12,32,0.95);
+        background: rgba(9,12,32,0.96);
         border-radius: 14px;
         padding: 1rem 1rem 0.9rem;
         border: 1px solid rgba(255,255,255,0.06);
@@ -444,24 +529,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
       .card-footer button {
         margin: 0;
         border-radius: 999px;
-        border-width: 1px;
         font-size: 0.78rem;
-      }
-
-      .label-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.2rem;
-        padding: 0.1rem 0.55rem;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.09);
-        background: rgba(13,16,44,0.9);
-        font-size: 0.74rem;
-        color: var(--ab-text-soft);
-      }
-
-      .muted {
-        color: var(--ab-text-soft);
       }
 
       .how-grid {
@@ -527,15 +595,11 @@ const physicalListings = listings.filter(l => l.type === "physical");
         .hero {
           grid-template-columns: minmax(0,1fr);
           gap: 1.7rem;
-          padding-top: 2rem;
+          padding-top: 1.8rem;
         }
 
         .hero-aside {
           order: -1;
-        }
-
-        .nav-inner {
-          padding-inline: 1rem;
         }
 
         .nav-links {
@@ -555,9 +619,9 @@ const physicalListings = listings.filter(l => l.type === "physical");
             <span class="brand-text">AmicBridge</span>
           </a>
           <div class="nav-links">
-            <a href="/borrow">Browse assets</a>
-            <a href="/lend">Lend your assets</a>
-            <a href="/how-it-works">How it works</a>
+            <a href="#lend-section">Start lending</a>
+            <a href="#borrow-section">Find assets to borrow</a>
+            <a href="/requests">My requests</a>
           </div>
           <div class="nav-cta">
             <a href="/login">
@@ -579,35 +643,39 @@ const physicalListings = listings.filter(l => l.type === "physical");
           </div>
           <h1>Earn from your assets. Borrow with clear rules.</h1>
           <p class="lead">
-            AmicBridge is a marketplace where people can lend or rent out crypto, digital items,
-            and real-world gear — while borrowers get transparent, over-collateralized terms.
+            AmicBridge lets people lend or rent out crypto, digital items, and real-world gear.
+            Borrowers can quickly find offers and send requests under transparent, over-collateralized terms.
           </p>
 
           <div class="hero-actions">
-            <a href="/lend">
+            <a href="#lend-section">
               <button class="btn-pill primary" type="button">Start lending</button>
             </a>
-            <a href="/borrow">
-              <button class="btn-pill secondary" type="button">Find an asset to borrow</button>
+            <a href="#borrow-section">
+              <button class="btn-pill secondary" type="button">Find assets to borrow</button>
+            </a>
+            <a href="/requests">
+              <button class="btn-pill secondary" type="button">View my requests</button>
             </a>
           </div>
 
           <div class="hero-subline">
-            No hidden tricks. Every listing shows interest, duration, and required collateral upfront.
+            One place to <strong>list assets</strong>, <strong>receive borrow requests</strong>,
+            and <strong>find offers</strong> that match exactly what you need.
           </div>
 
           <div class="hero-metrics">
             <div class="hero-metric-pill">Crypto · Digital · Physical</div>
             <div class="hero-metric-pill">Over-collateralized loan design</div>
-            <div class="hero-metric-pill">Reputation and rating system (coming)</div>
+            <div class="hero-metric-pill">Escrow & reputation (roadmap)</div>
           </div>
         </div>
 
         <aside class="hero-aside">
-          <div class="aside-heading">Live marketplace snapshot</div>
+          <div class="aside-heading">Marketplace snapshot (demo)</div>
           <div class="aside-description">
-            Demo data showing how AmicBridge listings look. Replace this with real stats
-            once your API and database are wired.
+            These numbers come from mock data while you’re building.
+            Later this box can show live stats from your database or smart contracts.
           </div>
           <div class="mini-grid">
             <div class="mini-card">
@@ -620,10 +688,10 @@ const physicalListings = listings.filter(l => l.type === "physical");
             </div>
             <div class="mini-card">
               <div class="mini-label">Physical gear</div>
-              <div class="mini-value">{physicalListings.length} nearby</div>
+              <div class="mini-value">{physicalListings.length} available</div>
             </div>
             <div class="mini-card">
-              <div class="mini-label">Min collateral target</div>
+              <div class="mini-label">Target collateral</div>
               <div class="mini-value">150%+</div>
             </div>
           </div>
@@ -637,127 +705,102 @@ const physicalListings = listings.filter(l => l.type === "physical");
       </section>
 
       <main>
-        <!-- CRYPTO LISTINGS -->
-        <section>
+        <!-- LENDER SECTION -->
+        <section id="lend-section" class="section-block">
           <div class="section-header">
-            <h2>Crypto lending offers</h2>
-            <span class="pill-tag">On-chain assets · Over-collateralized</span>
+            <h2>Start lending your assets</h2>
+            <span class="pill-tag">Create listings · Receive requests</span>
           </div>
           <p class="section-sub">
-            Lend or borrow major coins with clear interest, duration, and collateral requirements. This
-            section will pull live offers from your backend or smart contracts.
+            As a lender, you can register which assets you want to lend and on what terms.
+            Borrowers send you requests, and you decide who to accept.
           </p>
 
-          {cryptoListings.length === 0 && (
-            <p class="muted">No crypto listings yet. Be the first lender on AmicBridge.</p>
-          )}
+          <div class="lender-grid">
+            <article class="action-card">
+              <h3>List a new asset to lend</h3>
+              <p>
+                Create a lending offer for your crypto, digital items, or physical gear. Set the
+                interest, duration, and minimum collateral you require.
+              </p>
+              <a href="/lend">
+                <button class="primary" type="button">Create lending offer</button>
+              </a>
+            </article>
 
-          {cryptoListings.length > 0 && (
-            <div class="listing-grid">
-              {cryptoListings.map((l) => (
-                <article class="card">
-                  <h3 class="card-title">{l.title}</h3>
-                  <div class="card-asset">
-                    {l.symbol} · {l.amount} · Fixed-term {l.duration} days
-                  </div>
-                  <div class="card-row">
-                    <span>Interest</span>
-                    <span>{l.rate}% APR</span>
-                  </div>
-                  <div class="card-row">
-                    <span>Min collateral</span>
-                    <span>{l.collateral}%</span>
-                  </div>
-                  <div class="card-footer">
-                    <span>From: <strong>{l.lender}</strong></span>
-                    <a href={`/listing/${l.id}`}>
-                      <button class="secondary outline" type="button">View offer</button>
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
+            <article class="action-card">
+              <h3>Review borrow requests</h3>
+              <p>
+                See who wants to borrow your assets, read their messages, and accept or reject
+                requests based on their reputation and terms.
+              </p>
+              <a href="/requests">
+                <button class="secondary outline" type="button">Go to my requests</button>
+              </a>
+            </article>
+          </div>
+
+          <p class="muted">
+            Tip: In your backend, connect <code>/lend</code> to a “create listing” form,
+            and <code>/requests</code> to the page that shows incoming loan requests
+            for your existing listings.
+          </p>
         </section>
 
-        <!-- DIGITAL ASSET LISTINGS -->
-        <section>
+        <!-- BORROW SECTION -->
+        <section id="borrow-section" class="section-block">
           <div class="section-header">
-            <h2>Digital asset rentals</h2>
-            <span class="pill-tag">NFTs · game items · licenses</span>
+            <h2>Find assets to borrow</h2>
+            <span class="pill-tag">Search offers · Send requests</span>
           </div>
           <p class="section-sub">
-            Temporarily rent high-value digital assets — from rare NFT skins to licensed tools —
-            without permanently selling them.
+            Use filters to explore what lenders are offering. Once you find a match, open
+            the listing, read the terms, and send a borrow request.
           </p>
 
-          {digitalListings.length === 0 && (
-            <p class="muted">No digital asset listings yet.</p>
+          <div class="search-row">
+            <input type="search" placeholder="Search by asset, symbol, lender..." />
+            <div class="filter-chips">
+              <span class="filter-chip">Crypto</span>
+              <span class="filter-chip">Digital items</span>
+              <span class="filter-chip">Physical gear</span>
+            </div>
+          </div>
+
+          {listings.length === 0 && (
+            <p class="muted">No listings yet. When lenders create offers, they’ll appear here.</p>
           )}
 
-          {digitalListings.length > 0 && (
+          {listings.length > 0 && (
             <div class="listing-grid">
-              {digitalListings.map((l) => (
+              {listings.map((l) => (
                 <article class="card">
                   <h3 class="card-title">{l.title}</h3>
                   <div class="card-asset">
-                    Type: {l.symbol} · Rental duration: {l.duration} days
+                    {l.type === "crypto" && "Crypto · "}
+                    {l.type === "digital" && "Digital asset · "}
+                    {l.type === "physical" && "Physical asset · "}
+                    {l.symbol && `${l.symbol} · `}Duration: {l.duration} days
+                    {l.location && ` · ${l.location}`}
                   </div>
                   <div class="card-row">
-                    <span>Rate / period</span>
+                    <span>Amount</span>
+                    <span>{l.amount}</span>
+                  </div>
+                  <div class="card-row">
+                    <span>Interest / rate</span>
                     <span>{l.rate}%</span>
                   </div>
                   <div class="card-row">
-                    <span>Min collateral</span>
+                    <span>Min collateral / deposit</span>
                     <span>{l.collateral}%</span>
                   </div>
                   <div class="card-footer">
                     <span>From: <strong>{l.lender}</strong></span>
                     <a href={`/listing/${l.id}`}>
-                      <button class="secondary outline" type="button">View details</button>
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-
-        <!-- PHYSICAL ASSET LISTINGS -->
-        <section>
-          <div class="section-header">
-            <h2>Physical gear rentals</h2>
-            <span class="pill-tag">Real-world assets · deposit-backed</span>
-          </div>
-          <p class="section-sub">
-            List or rent high-value equipment with clear deposits and location data. Ideal for rigs,
-            cameras, and other specialized hardware.
-          </p>
-
-          {physicalListings.length === 0 && (
-            <p class="muted">No physical rentals yet.</p>
-          )}
-
-          {physicalListings.length > 0 && (
-            <div class="listing-grid">
-              {physicalListings.map((l) => (
-                <article class="card">
-                  <h3 class="card-title">{l.title}</h3>
-                  <div class="card-asset">
-                    {l.location ? `Location: ${l.location}` : "Location: flexible"}
-                  </div>
-                  <div class="card-row">
-                    <span>Rental period</span>
-                    <span>{l.duration} days</span>
-                  </div>
-                  <div class="card-row">
-                    <span>Required deposit</span>
-                    <span>{l.collateral}% of value</span>
-                  </div>
-                  <div class="card-footer">
-                    <span>Owner: <strong>{l.lender}</strong></span>
-                    <a href={`/listing/${l.id}`}>
-                      <button class="secondary outline" type="button">View listing</button>
+                      <button class="secondary outline" type="button">
+                        View & request
+                      </button>
                     </a>
                   </div>
                 </article>
@@ -767,7 +810,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
         </section>
 
         <!-- HOW IT WORKS -->
-        <section>
+        <section class="section-block">
           <div class="section-header">
             <h2>How AmicBridge works</h2>
           </div>
@@ -775,21 +818,21 @@ const physicalListings = listings.filter(l => l.type === "physical");
             <article class="hiw-card">
               <h3 class="hiw-title">
                 <span class="hiw-step">1</span>
-                List or discover assets
+                Lenders list, borrowers explore
               </h3>
               <p class="muted">
-                Lenders register assets they’re willing to lend — crypto, digital, or physical. Borrowers
-                filter by type, rate, duration, and location to find a match.
+                Lenders register which assets they want to lend and under what rules. Borrowers
+                browse offers and filter by type, rate, duration, and location.
               </p>
             </article>
             <article class="hiw-card">
               <h3 class="hiw-title">
                 <span class="hiw-step">2</span>
-                Agree on transparent terms
+                Requests & approvals
               </h3>
               <p class="muted">
-                Every listing shows interest, duration, and required collateral. Both sides confirm the
-                terms before any funds or assets move.
+                Borrowers send requests directly from each listing. Lenders review messages
+                and decide who to approve based on trust and terms.
               </p>
             </article>
             <article class="hiw-card">
@@ -798,27 +841,28 @@ const physicalListings = listings.filter(l => l.type === "physical");
                 Escrow, collateral, completion
               </h3>
               <p class="muted">
-                Collateral or deposit is held via escrow (smart contract or payment provider). Once the
-                loan is repaid or item returned, everything settles automatically.
+                Once your backend and smart contracts are live, collateral or deposits can be
+                held in escrow. When loans are repaid or assets returned, everything settles
+                according to the agreed rules.
               </p>
             </article>
           </div>
         </section>
 
         <!-- TRUST SECTION -->
-        <section>
+        <section class="section-block">
           <div class="section-header">
-            <h2>Built to be the safest lending hub on the internet</h2>
+            <h2>Built for safety, not surprise</h2>
           </div>
           <p class="section-sub">
-            The long-term goal for AmicBridge is simple: be the most trusted, most transparent place in
-            the world to lend or borrow between people — for both on-chain and real-world assets.
+            The goal for AmicBridge is to become the safest place on the internet to lend and
+            borrow between people — for both crypto and real-world assets.
           </p>
           <div class="trust-pills">
+            <span class="trust-pill">Transparent interest & collateral terms</span>
             <span class="trust-pill">Reputation & rating system (roadmap)</span>
-            <span class="trust-pill">Over-collateralized loan structures</span>
-            <span class="trust-pill">Escrow-based protection</span>
-            <span class="trust-pill">Designed for global, not just local</span>
+            <span class="trust-pill">Escrow integrations for crypto & fiat</span>
+            <span class="trust-pill">Designed for global asset lending</span>
           </div>
         </section>
       </main>
