@@ -1,6 +1,6 @@
 ---
 /**
- * Mock data – swap this with real DB/API later.
+ * Mock data – replace with real DB/API in production.
  */
 const listings = [
   {
@@ -60,398 +60,773 @@ const physicalListings = listings.filter(l => l.type === "physical");
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>AmicBridge — Lend & Rent Any Asset</title>
-    <!-- Lightweight CSS framework for quick styling -->
+
+    <!-- Pico for base styling -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@latest/css/pico.min.css"
     />
+
     <style>
       :root {
-        --accent: #4c6fff;
-        --accent-soft: #e3e7ff;
+        --ab-bg: #050613;
+        --ab-surface: #0c0f25;
+        --ab-soft-surface: #101429;
+        --ab-border: rgba(255,255,255,0.06);
+        --ab-accent: #4c6fff;
+        --ab-accent-soft: rgba(76,111,255,0.1);
+        --ab-text-soft: #a4a8c4;
+        --ab-radius-lg: 18px;
       }
 
       body {
-        background: #f4f4f7;
-      }
-
-      header.hero {
-        padding: 3.5rem 1rem 2.5rem;
-        text-align: center;
-        background: radial-gradient(circle at top, #1b1f3b 0, #050613 50%, #000 100%);
-        color: #fff;
-        margin-bottom: 2rem;
-      }
-
-      header.hero h1 {
-        font-size: clamp(2.2rem, 4vw, 2.9rem);
-        margin-bottom: 0.5rem;
-      }
-
-      header.hero p.lead {
-        max-width: 600px;
-        margin: 0.5rem auto 1.5rem;
-        font-size: 1.05rem;
-        opacity: 0.9;
-      }
-
-      .hero-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-
-      .hero-buttons a button {
         margin: 0;
+        background: radial-gradient(circle at top, #191f4b 0, #050613 45%, #02020a 100%);
+        color: #f6f7ff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
       }
 
-      .hero-tagline {
-        margin-top: 1.5rem;
-        font-size: 0.95rem;
-        opacity: 0.8;
+      .page-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
 
-      main.container {
-        max-width: 1080px;
-        margin-inline: auto;
-        padding-inline: 1rem;
+      /* NAVBAR */
+
+      .nav-shell {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(14px);
+        background: linear-gradient(
+          to bottom,
+          rgba(5,6,19,0.92),
+          rgba(5,6,19,0.82),
+          transparent
+        );
+      }
+
+      .nav-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0.8rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+
+      .brand-mark {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, #68b0ff, #4c6fff, #2d1b8a);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #fff;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 6px 18px rgba(0,0,0,0.4);
+      }
+
+      .brand-text {
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--ab-text-soft);
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .btn-pill {
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(9,12,32,0.9);
+        padding: 0.32rem 0.9rem;
+        font-size: 0.8rem;
+        color: #f6f7ff;
+      }
+
+      .btn-pill.primary {
+        background: linear-gradient(135deg, #4c6fff, #6d8aff);
+        border-color: rgba(255,255,255,0.25);
+        box-shadow: 0 10px 24px rgba(23,40,120,0.6);
+      }
+
+      .btn-pill.primary:hover {
+        filter: brightness(1.04);
+      }
+
+      .btn-pill.secondary:hover {
+        border-color: rgba(255,255,255,0.2);
+      }
+
+      /* HERO */
+
+      .hero {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 2.8rem 1.25rem 2.2rem;
+        display: grid;
+        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.7fr);
+        gap: 2.4rem;
+        align-items: center;
+      }
+
+      .hero-main h1 {
+        font-size: clamp(2.2rem, 3.2vw, 2.8rem);
+        margin-bottom: 0.7rem;
+      }
+
+      .hero-highlight {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.18rem 0.55rem;
+        border-radius: 999px;
+        background: rgba(13,19,58,0.9);
+        border: 1px solid rgba(143,174,255,0.35);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #b7c3ff;
+        margin-bottom: 0.9rem;
+      }
+
+      .pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #4cffb1;
+        box-shadow: 0 0 0 0 rgba(76,255,177,0.6);
+        animation: pulse 1.8s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(76,255,177,0.6);
+        }
+        70% {
+          transform: scale(1.1);
+          box-shadow: 0 0 0 13px rgba(76,255,177,0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(76,255,177,0);
+        }
+      }
+
+      .hero-main p.lead {
+        color: var(--ab-text-soft);
+        max-width: 550px;
+        margin-bottom: 1.4rem;
+        font-size: 0.98rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .hero-subline {
+        font-size: 0.85rem;
+        color: var(--ab-text-soft);
+      }
+
+      .hero-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.4rem;
+        font-size: 0.78rem;
+        color: var(--ab-text-soft);
+      }
+
+      .hero-metric-pill {
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(13,16,44,0.7);
+      }
+
+      .hero-aside {
+        background: radial-gradient(circle at 0 0, rgba(118,144,255,0.32), transparent 55%),
+                    radial-gradient(circle at 100% 0, rgba(60,223,192,0.16), transparent 40%);
+        border-radius: var(--ab-radius-lg);
+        padding: 1.4rem 1.5rem;
+        border: 1px solid var(--ab-border);
+        box-shadow: 0 18px 40px rgba(1,5,25,0.8);
+      }
+
+      .aside-heading {
+        font-size: 0.9rem;
+        margin-bottom: 0.7rem;
+      }
+
+      .aside-description {
+        font-size: 0.8rem;
+        color: var(--ab-text-soft);
+        margin-bottom: 1rem;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .mini-card {
+        background: rgba(5,7,24,0.7);
+        border-radius: 12px;
+        padding: 0.7rem 0.7rem;
+        border: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.78rem;
+      }
+
+      .mini-label {
+        color: var(--ab-text-soft);
+        font-size: 0.72rem;
+        margin-bottom: 0.1rem;
+      }
+
+      .mini-value {
+        font-weight: 500;
+      }
+
+      .aside-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: var(--ab-text-soft);
+      }
+
+      .confidence {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        background: rgba(18,167,113,0.18);
+        color: #b3ffe0;
+        border: 1px solid rgba(36,194,143,0.55);
+      }
+
+      .confidence span {
+        font-size: 0.8rem;
+      }
+
+      /* MAIN CONTENT */
+
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 1.25rem 2.4rem;
+        flex: 1;
       }
 
       .section-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
         gap: 1rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.3rem;
       }
 
       .section-header h2 {
         margin: 0;
+        font-size: 1.1rem;
       }
 
-      .badge {
+      .section-sub {
+        font-size: 0.84rem;
+        color: var(--ab-text-soft);
+        margin-bottom: 1.1rem;
+      }
+
+      .pill-tag {
         display: inline-flex;
         align-items: center;
-        padding: 0.1rem 0.5rem;
+        padding: 0.18rem 0.65rem;
         border-radius: 999px;
-        font-size: 0.75rem;
-        background: var(--accent-soft);
-        color: #222;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(11,13,34,0.85);
+        font-size: 0.74rem;
+        color: var(--ab-text-soft);
       }
 
-      .grid {
+      .listing-grid {
         display: grid;
-        gap: 1.4rem;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.2rem;
         margin-bottom: 2rem;
       }
 
       .card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 1.25rem 1.15rem;
-        box-shadow: 0 1px 5px rgba(0,0,0,.06);
-        border: 1px solid rgba(0,0,0,.03);
+        background: rgba(9,12,32,0.95);
+        border-radius: 14px;
+        padding: 1rem 1rem 0.9rem;
+        border: 1px solid rgba(255,255,255,0.06);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.55);
         transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
       }
 
       .card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 3px 18px rgba(0,0,0,.11);
-        border-color: rgba(76,111,255,.4);
+        border-color: rgba(98,132,255,0.9);
+        box-shadow: 0 16px 32px rgba(7,8,40,0.9);
       }
 
       .card-title {
-        font-size: 1.05rem;
-        margin-bottom: 0.4rem;
+        font-size: 0.98rem;
+        margin-bottom: 0.28rem;
       }
 
-      .card-meta {
-        font-size: 0.85rem;
-        color: #555;
-        margin-bottom: 0.4rem;
+      .card-asset {
+        font-size: 0.8rem;
+        color: var(--ab-text-soft);
+        margin-bottom: 0.5rem;
       }
 
-      .card-stats {
-        font-size: 0.9rem;
-        margin-bottom: 0.4rem;
+      .card-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .card-row span:first-child {
+        color: var(--ab-text-soft);
       }
 
       .card-footer {
         margin-top: 0.6rem;
-        font-size: 0.8rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #666;
+        font-size: 0.78rem;
+        color: var(--ab-text-soft);
       }
 
-      .chip {
-        padding: 0.12rem 0.5rem;
+      .card-footer button {
+        margin: 0;
         border-radius: 999px;
-        border: 1px solid rgba(0,0,0,.06);
-        font-size: 0.75rem;
+        border-width: 1px;
+        font-size: 0.78rem;
       }
 
-      .how-it-works {
-        margin: 3rem 0 2.5rem;
+      .label-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        padding: 0.1rem 0.55rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.09);
+        background: rgba(13,16,44,0.9);
+        font-size: 0.74rem;
+        color: var(--ab-text-soft);
+      }
+
+      .muted {
+        color: var(--ab-text-soft);
       }
 
       .how-grid {
         display: grid;
-        gap: 1.4rem;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.1rem;
+        margin-bottom: 2.2rem;
+      }
+
+      .hiw-card {
+        background: rgba(9,12,32,0.95);
+        border-radius: 14px;
+        padding: 1rem 1rem;
+        border: 1px solid rgba(255,255,255,0.05);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+        font-size: 0.86rem;
+      }
+
+      .hiw-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
       }
 
       .hiw-step {
-        background: #fff;
-        border-radius: 12px;
-        padding: 1.25rem;
-        box-shadow: 0 1px 5px rgba(0,0,0,.05);
-        border: 1px solid rgba(0,0,0,.03);
-      }
-
-      .hiw-step h3 {
-        margin-top: 0;
-        font-size: 1.02rem;
-      }
-
-      .hiw-badge {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border-radius: 999px;
-        background: var(--accent-soft);
-        color: #111;
-        font-size: 0.8rem;
+        background: rgba(155,174,255,0.18);
+        border: 1px solid rgba(163,183,255,0.9);
+        font-size: 0.78rem;
         margin-right: 0.4rem;
       }
 
-      .trust-section {
-        margin-bottom: 3rem;
+      .trust-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.6rem;
+        font-size: 0.78rem;
       }
 
       .trust-pill {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.15rem 0.6rem;
+        padding: 0.2rem 0.7rem;
         border-radius: 999px;
-        background: #fff;
-        border: 1px solid rgba(0,0,0,.06);
-        font-size: 0.8rem;
-        margin-right: 0.4rem;
-        margin-bottom: 0.25rem;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(7,10,30,0.9);
+        color: var(--ab-text-soft);
       }
 
       footer.page-footer {
+        border-top: 1px solid rgba(255,255,255,0.06);
+        margin-top: auto;
+        padding: 1.4rem 1.25rem 1.8rem;
+        font-size: 0.78rem;
+        color: var(--ab-text-soft);
         text-align: center;
-        padding: 1.8rem 1rem 2.2rem;
-        font-size: 0.85rem;
-        color: #666;
       }
 
-      @media (max-width: 640px) {
-        header.hero {
-          padding-top: 2.6rem;
-          padding-bottom: 2.2rem;
+      @media (max-width: 768px) {
+        .hero {
+          grid-template-columns: minmax(0,1fr);
+          gap: 1.7rem;
+          padding-top: 2rem;
+        }
+
+        .hero-aside {
+          order: -1;
+        }
+
+        .nav-inner {
+          padding-inline: 1rem;
+        }
+
+        .nav-links {
+          display: none;
         }
       }
     </style>
   </head>
 
   <body>
-    <!-- HERO -->
-    <header class="hero">
-      <h1>AmicBridge</h1>
-      <p class="lead">
-        The marketplace where people can safely lend or rent out crypto, digital assets,
-        and real-world gear — while borrowers get fast, transparent access to what they need.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="/lend">
-          <button class="primary">Start lending</button>
-        </a>
-        <a href="/borrow">
-          <button class="secondary">Find an asset to borrow</button>
-        </a>
+    <div class="page-shell">
+      <!-- NAVBAR -->
+      <div class="nav-shell">
+        <nav class="nav-inner">
+          <a class="brand" href="/">
+            <span class="brand-mark">A</span>
+            <span class="brand-text">AmicBridge</span>
+          </a>
+          <div class="nav-links">
+            <a href="/borrow">Browse assets</a>
+            <a href="/lend">Lend your assets</a>
+            <a href="/how-it-works">How it works</a>
+          </div>
+          <div class="nav-cta">
+            <a href="/login">
+              <button class="btn-pill secondary" type="button">Sign in</button>
+            </a>
+            <a href="/register">
+              <button class="btn-pill primary" type="button">Get started</button>
+            </a>
+          </div>
+        </nav>
       </div>
 
-      <p class="hero-tagline">
-        Earn from the assets you already own. Borrow with clear collateral and no surprise rules.
-      </p>
-    </header>
-
-    <main class="container">
-      <!-- CRYPTO LISTINGS -->
-      <section>
-        <div class="section-header">
-          <h2>Crypto lending offers</h2>
-          <span class="badge">Live demo data</span>
-        </div>
-        <p>
-          Lend or borrow major coins with over-collateralized terms and transparent rates.
-        </p>
-
-        {cryptoListings.length === 0 && (
-          <p>No crypto listings yet.</p>
-        )}
-
-        {cryptoListings.length > 0 && (
-          <div class="grid">
-            {cryptoListings.map((l) => (
-              <article class="card">
-                <h3 class="card-title">{l.title}</h3>
-                <div class="card-meta">
-                  Asset: {l.symbol} · Amount: {l.amount}
-                </div>
-                <div class="card-stats">
-                  Interest: <strong>{l.rate}% APR</strong><br />
-                  Duration: <strong>{l.duration} days</strong><br />
-                  Min collateral: <strong>{l.collateral}%</strong>
-                </div>
-                <div class="card-footer">
-                  <span>From: {l.lender}</span>
-                  <a href={`/listing/${l.id}`}>
-                    <button class="secondary outline" style="margin:0;">View</button>
-                  </a>
-                </div>
-              </article>
-            ))}
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-main">
+          <div class="hero-highlight">
+            <span class="pulse-dot"></span>
+            Early access · Asset lending hub
           </div>
-        )}
-      </section>
+          <h1>Earn from your assets. Borrow with clear rules.</h1>
+          <p class="lead">
+            AmicBridge is a marketplace where people can lend or rent out crypto, digital items,
+            and real-world gear — while borrowers get transparent, over-collateralized terms.
+          </p>
 
-      <!-- DIGITAL ASSETS -->
-      <section>
-        <div class="section-header">
-          <h2>Digital asset rentals</h2>
-          <span class="badge">NFTs, game items & more</span>
-        </div>
-        <p>
-          Temporarily rent out access to high-value digital items — or borrow them for a season,
-          tournament, or project.
-        </p>
-
-        {digitalListings.length === 0 && (
-          <p>No digital listings yet.</p>
-        )}
-
-        {digitalListings.length > 0 && (
-          <div class="grid">
-            {digitalListings.map((l) => (
-              <article class="card">
-                <h3 class="card-title">{l.title}</h3>
-                <div class="card-meta">
-                  Type: {l.symbol} · Duration: {l.duration} days
-                </div>
-                <div class="card-stats">
-                  Rate: <strong>{l.rate}%</strong> · Min collateral:
-                  <strong> {l.collateral}%</strong>
-                </div>
-                <div class="card-footer">
-                  <span>From: {l.lender}</span>
-                  <a href={`/listing/${l.id}`}>
-                    <button class="secondary outline" style="margin:0;">View</button>
-                  </a>
-                </div>
-              </article>
-            ))}
+          <div class="hero-actions">
+            <a href="/lend">
+              <button class="btn-pill primary" type="button">Start lending</button>
+            </a>
+            <a href="/borrow">
+              <button class="btn-pill secondary" type="button">Find an asset to borrow</button>
+            </a>
           </div>
-        )}
-      </section>
 
-      <!-- PHYSICAL ASSETS -->
-      <section>
-        <div class="section-header">
-          <h2>Physical gear rentals</h2>
-          <span class="badge">Real-world assets</span>
-        </div>
-        <p>
-          Rent out hardware and high-value equipment with clear deposits and location info.
-        </p>
-
-        {physicalListings.length === 0 && (
-          <p>No physical asset listings yet.</p>
-        )}
-
-        {physicalListings.length > 0 && (
-          <div class="grid">
-            {physicalListings.map((l) => (
-              <article class="card">
-                <h3 class="card-title">{l.title}</h3>
-                <div class="card-meta">
-                  {l.location ? `Location: ${l.location}` : "Location: flexible"}
-                </div>
-                <div class="card-stats">
-                  Duration: <strong>{l.duration} days</strong><br />
-                  Required deposit (collateral): <strong>{l.collateral}%</strong>
-                </div>
-                <div class="card-footer">
-                  <span>Owner: {l.lender}</span>
-                  <a href={`/listing/${l.id}`}>
-                    <button class="secondary outline" style="margin:0;">View</button>
-                  </a>
-                </div>
-              </article>
-            ))}
+          <div class="hero-subline">
+            No hidden tricks. Every listing shows interest, duration, and required collateral upfront.
           </div>
-        )}
+
+          <div class="hero-metrics">
+            <div class="hero-metric-pill">Crypto · Digital · Physical</div>
+            <div class="hero-metric-pill">Over-collateralized loan design</div>
+            <div class="hero-metric-pill">Reputation and rating system (coming)</div>
+          </div>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="aside-heading">Live marketplace snapshot</div>
+          <div class="aside-description">
+            Demo data showing how AmicBridge listings look. Replace this with real stats
+            once your API and database are wired.
+          </div>
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="mini-label">Crypto offers</div>
+              <div class="mini-value">{cryptoListings.length} active</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Digital items</div>
+              <div class="mini-value">{digitalListings.length} listed</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Physical gear</div>
+              <div class="mini-value">{physicalListings.length} nearby</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Min collateral target</div>
+              <div class="mini-value">150%+</div>
+            </div>
+          </div>
+          <div class="aside-footer">
+            <div class="confidence">
+              <span>●</span>
+              <span>Designed for safe peer-to-peer lending</span>
+            </div>
+          </div>
+        </aside>
       </section>
 
-      <!-- HOW IT WORKS -->
-      <section class="how-it-works">
-        <div class="section-header">
-          <h2>How AmicBridge works</h2>
-        </div>
-        <div class="how-grid">
-          <article class="hiw-step">
-            <h3><span class="hiw-badge">1</span> List or discover assets</h3>
-            <p>
-              Lenders register assets they’re willing to lend — crypto, digital, or physical.
-              Borrowers filter by type, rate, duration, and location.
-            </p>
-          </article>
-          <article class="hiw-step">
-            <h3><span class="hiw-badge">2</span> Agree on safe terms</h3>
-            <p>
-              Each listing defines interest, duration, and minimum collateral. Both sides see
-              everything clearly before they commit.
-            </p>
-          </article>
-          <article class="hiw-step">
-            <h3><span class="hiw-badge">3</span> Escrow & completion</h3>
-            <p>
-              Collateral or deposit is locked via escrow. Once the loan is repaid or asset
-              returned, funds are released automatically according to the rules.
-            </p>
-          </article>
-        </div>
-      </section>
+      <main>
+        <!-- CRYPTO LISTINGS -->
+        <section>
+          <div class="section-header">
+            <h2>Crypto lending offers</h2>
+            <span class="pill-tag">On-chain assets · Over-collateralized</span>
+          </div>
+          <p class="section-sub">
+            Lend or borrow major coins with clear interest, duration, and collateral requirements. This
+            section will pull live offers from your backend or smart contracts.
+          </p>
 
-      <!-- TRUST SECTION -->
-      <section class="trust-section">
-        <div class="section-header">
-          <h2>Why people trust AmicBridge</h2>
-        </div>
-        <p>
-          The goal is simple: become the safest, clearest place in the world to lend and rent
-          assets between people.
-        </p>
-        <div>
-          <span class="trust-pill">Reputation & rating system</span>
-          <span class="trust-pill">Over-collateralized loans</span>
-          <span class="trust-pill">Transparent terms — no hidden tricks</span>
-          <span class="trust-pill">Designed for both crypto & real-world assets</span>
-        </div>
-      </section>
-    </main>
+          {cryptoListings.length === 0 && (
+            <p class="muted">No crypto listings yet. Be the first lender on AmicBridge.</p>
+          )}
 
-    <footer class="page-footer">
-      AmicBridge — unified lending & rental marketplace. Demo interface, not financial advice.
-    </footer>
+          {cryptoListings.length > 0 && (
+            <div class="listing-grid">
+              {cryptoListings.map((l) => (
+                <article class="card">
+                  <h3 class="card-title">{l.title}</h3>
+                  <div class="card-asset">
+                    {l.symbol} · {l.amount} · Fixed-term {l.duration} days
+                  </div>
+                  <div class="card-row">
+                    <span>Interest</span>
+                    <span>{l.rate}% APR</span>
+                  </div>
+                  <div class="card-row">
+                    <span>Min collateral</span>
+                    <span>{l.collateral}%</span>
+                  </div>
+                  <div class="card-footer">
+                    <span>From: <strong>{l.lender}</strong></span>
+                    <a href={`/listing/${l.id}`}>
+                      <button class="secondary outline" type="button">View offer</button>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <!-- DIGITAL ASSET LISTINGS -->
+        <section>
+          <div class="section-header">
+            <h2>Digital asset rentals</h2>
+            <span class="pill-tag">NFTs · game items · licenses</span>
+          </div>
+          <p class="section-sub">
+            Temporarily rent high-value digital assets — from rare NFT skins to licensed tools —
+            without permanently selling them.
+          </p>
+
+          {digitalListings.length === 0 && (
+            <p class="muted">No digital asset listings yet.</p>
+          )}
+
+          {digitalListings.length > 0 && (
+            <div class="listing-grid">
+              {digitalListings.map((l) => (
+                <article class="card">
+                  <h3 class="card-title">{l.title}</h3>
+                  <div class="card-asset">
+                    Type: {l.symbol} · Rental duration: {l.duration} days
+                  </div>
+                  <div class="card-row">
+                    <span>Rate / period</span>
+                    <span>{l.rate}%</span>
+                  </div>
+                  <div class="card-row">
+                    <span>Min collateral</span>
+                    <span>{l.collateral}%</span>
+                  </div>
+                  <div class="card-footer">
+                    <span>From: <strong>{l.lender}</strong></span>
+                    <a href={`/listing/${l.id}`}>
+                      <button class="secondary outline" type="button">View details</button>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <!-- PHYSICAL ASSET LISTINGS -->
+        <section>
+          <div class="section-header">
+            <h2>Physical gear rentals</h2>
+            <span class="pill-tag">Real-world assets · deposit-backed</span>
+          </div>
+          <p class="section-sub">
+            List or rent high-value equipment with clear deposits and location data. Ideal for rigs,
+            cameras, and other specialized hardware.
+          </p>
+
+          {physicalListings.length === 0 && (
+            <p class="muted">No physical rentals yet.</p>
+          )}
+
+          {physicalListings.length > 0 && (
+            <div class="listing-grid">
+              {physicalListings.map((l) => (
+                <article class="card">
+                  <h3 class="card-title">{l.title}</h3>
+                  <div class="card-asset">
+                    {l.location ? `Location: ${l.location}` : "Location: flexible"}
+                  </div>
+                  <div class="card-row">
+                    <span>Rental period</span>
+                    <span>{l.duration} days</span>
+                  </div>
+                  <div class="card-row">
+                    <span>Required deposit</span>
+                    <span>{l.collateral}% of value</span>
+                  </div>
+                  <div class="card-footer">
+                    <span>Owner: <strong>{l.lender}</strong></span>
+                    <a href={`/listing/${l.id}`}>
+                      <button class="secondary outline" type="button">View listing</button>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section>
+          <div class="section-header">
+            <h2>How AmicBridge works</h2>
+          </div>
+          <div class="how-grid">
+            <article class="hiw-card">
+              <h3 class="hiw-title">
+                <span class="hiw-step">1</span>
+                List or discover assets
+              </h3>
+              <p class="muted">
+                Lenders register assets they’re willing to lend — crypto, digital, or physical. Borrowers
+                filter by type, rate, duration, and location to find a match.
+              </p>
+            </article>
+            <article class="hiw-card">
+              <h3 class="hiw-title">
+                <span class="hiw-step">2</span>
+                Agree on transparent terms
+              </h3>
+              <p class="muted">
+                Every listing shows interest, duration, and required collateral. Both sides confirm the
+                terms before any funds or assets move.
+              </p>
+            </article>
+            <article class="hiw-card">
+              <h3 class="hiw-title">
+                <span class="hiw-step">3</span>
+                Escrow, collateral, completion
+              </h3>
+              <p class="muted">
+                Collateral or deposit is held via escrow (smart contract or payment provider). Once the
+                loan is repaid or item returned, everything settles automatically.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- TRUST SECTION -->
+        <section>
+          <div class="section-header">
+            <h2>Built to be the safest lending hub on the internet</h2>
+          </div>
+          <p class="section-sub">
+            The long-term goal for AmicBridge is simple: be the most trusted, most transparent place in
+            the world to lend or borrow between people — for both on-chain and real-world assets.
+          </p>
+          <div class="trust-pills">
+            <span class="trust-pill">Reputation & rating system (roadmap)</span>
+            <span class="trust-pill">Over-collateralized loan structures</span>
+            <span class="trust-pill">Escrow-based protection</span>
+            <span class="trust-pill">Designed for global, not just local</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        AmicBridge — unified asset lending & rental marketplace. This interface uses demo data only
+        and is not financial advice or a live protocol.
+      </footer>
+    </div>
   </body>
 </html>
