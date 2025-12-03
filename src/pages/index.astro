@@ -1,346 +1,114 @@
 ---
-import { onMount } from "solid-js";
-
 const featuresBorrower = [
   "Request crypto loans directly from real lenders.",
-  "Use stablecoins like USDT, USDC or DAI – wallet to wallet.",
+  "Use stablecoins like USDT, USDC or DAI — wallet to wallet.",
   "Back your loan with crypto collateral or tokenized real assets.",
-  "Negotiate terms and repay transparently on-chain.",
+  "Negotiate terms and repay transparently on–chain.",
 ];
 
 const featuresLender = [
   "Earn yield by lending stablecoins to real people and projects.",
-  "Invest in tokenized deals backed by real-world assets.",
-  "Always keep crypto in your own wallet – no custody, no banks.",
+  "Invest in tokenized deals backed by real–world assets.",
+  "Always keep crypto in your own wallet — no custody, no banks.",
   "Choose your risk level, yield, and duration.",
 ];
 
-// Price state
+// Your initial price object
 let prices = {
-  btc: "Loading...",
-  eth: "Loading...",
-  gold: "Loading...",
-  silver: "Loading...",
+  BTC: null,
+  ETH: null,
+  SOL: null,
 };
-
-async function fetchPrices() {
-  try {
-    const res = await fetch(`/api/prices`);
-    const data = await res.json();
-    prices = data;
-  } catch (e) {
-    console.error("Price API error", e);
-  }
-}
-
-// refresh every 60s
-onMount(() => {
-  fetchPrices();
-  setInterval(fetchPrices, 60000);
-});
 ---
 
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Amicbridge – Borrow, Lend & Tokenize Assets with Crypto</title>
+<main style="
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  background: #020617;
+  color: #e5e7eb;
+  text-align: center;
+">
+  <section style="
+    max-width: 720px;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(14px);
+  ">
+    <h1 style="font-size: 2.6rem; margin-bottom: 1.2rem; font-weight: 700;">
+      Amicbridge
+    </h1>
 
-  <meta name="description"
-    content="Amicbridge connects crypto borrowers, lenders, and asset owners through secure smart-contract vaults and wallet-to-wallet transactions. Borrow, lend, or tokenize real assets using stablecoins." />
+    <p style="color:#cbd5e1; margin-bottom:1.5rem;">
+      Peer-to-peer lending with crypto. No banks. No intermediaries.
+    </p>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #020617;
-      --card: #020617;
-      --accent: #22c55e;
-      --accent-soft: #064e3b;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --border: #1f2933;
+    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
+      Borrower Features
+    </h2>
+    <ul style="text-align:left; margin:auto; max-width:500px; line-height:1.6;">
+      {featuresBorrower.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
+      Lender Features
+    </h2>
+    <ul style="text-align:left; margin:auto; max-width:500px; line-height:1.6;">
+      {featuresLender.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+
+    <h2 style="font-size:1.4rem; margin-top:2rem; margin-bottom:0.75rem;">
+      Crypto Prices
+    </h2>
+
+    <div id="price-box" style="margin-top:1rem; color:#94a3b8;">
+      Loading prices…
+    </div>
+  </section>
+
+  <footer style="margin-top:2rem; font-size:0.85rem; color:#94a3b8;">
+    Built with Astro — no SolidJS required 🚀
+  </footer>
+</main>
+
+<!-- Runs after page load -->
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Example: fetch prices and update DOM
+    try {
+      const res = await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd"
+      );
+      const data = await res.json();
+
+      const prices = {
+        BTC: data.bitcoin?.usd,
+        ETH: data.ethereum?.usd,
+        SOL: data.solana?.usd,
+      };
+
+      const el = document.getElementById("price-box");
+      el.innerHTML = `
+        <div>BTC: $${prices.BTC}</div>
+        <div>ETH: $${prices.ETH}</div>
+        <div>SOL: $${prices.SOL}</div>
+      `;
+    } catch (err) {
+      document.getElementById("price-box").innerHTML =
+        "Failed to load price data.";
+      console.error(err);
     }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
-      color: var(--text);
-    }
-    a { color: var(--accent); }
-    .shell {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.8rem 1.4rem 5rem;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.6rem;
-    }
-    nav a {
-      margin-left: 1.3rem;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-    nav a.button {
-      background: var(--accent);
-      color: #022c22;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      font-weight: 500;
-    }
-    h1 {
-      font-size: clamp(2.4rem, 3vw + 1rem, 3.3rem);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      line-height: 1.08;
-    }
-    h1 span { color: var(--accent); }
-    .hero-text {
-      max-width: 36rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 1.6rem;
-    }
-    .cta-row {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.2rem;
-    }
-    .btn {
-      border-radius: 999px;
-      padding: 0.65rem 1.45rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #022c22;
-      border: none;
-    }
-    .card {
-      background: rgba(15, 23, 42, 0.82);
-      border-radius: 1.2rem;
-      padding: 1.4rem;
-      border: 1px solid rgba(148, 163, 184, 0.19);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-    }
-    footer { margin-top: 3rem; font-size: 0.75rem; color: var(--muted); }
-    footer strong { color: var(--text); }
-    .features { display: grid; gap: 1.2rem; margin-top: 3rem; }
-    @media(min-width:800px) {
-      .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.6rem; }
-      .features { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="shell">
-    <!-- HEADER -->
-    <header>
-      <div class="logo" style="display:flex;align-items:center;gap:0.6rem;font-weight:600;">
-        <div style="width:28px;height:28px;border-radius:50%;background:radial-gradient(circle,#4ade80,#16a34a);display:flex;align-items:center;justify-content:center;color:#022c22;">
-          A
-        </div>
-        <span>Amicbridge</span>
-      </div>
-      <nav>
-        <a href="#invest">Invest</a>
-        <a href="#borrow">Borrow</a>
-        <a href="#tokenize">Tokenize</a>
-        <a href="#contact">Contact</a>
-        <a class="button" href="#start">Get started</a>
-      </nav>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero" id="start">
-      <div>
-        <h1>
-          Borrow crypto.<br />
-          Lend crypto.<br />
-          <span>Tokenize real assets.</span>
-        </h1>
-
-        <p class="hero-text">
-          Amicbridge connects borrowers, lenders, and asset owners through
-          wallet-to-wallet crypto transactions, stablecoins, and tokenized
-          assets. Use smart contracts to raise capital, earn yield, or secure
-          loans without banks or intermediaries.
-        </p>
-
-        <div class="cta-row">
-          <a href="#invest" class="btn-primary btn">Invest crypto</a>
-          <a href="#borrow" class="btn btn-outline">Borrow crypto</a>
-          <a href="#tokenize" class="btn btn-outline">Tokenize an asset</a>
-        </div>
-        <p style="font-size:0.8rem;color:var(--muted);">
-          All payments are wallet-to-wallet using stablecoins.
-          No banks. No custody.
-        </p>
-      </div>
-
-      <!-- LIVE PRICES -->
-      <aside>
-        <div class="card">
-          <h2 style="margin-bottom:0.3rem;font-size:1.1rem;">Live Asset Prices</h2>
-          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">
-            Updated automatically every 60 seconds
-          </p>
-
-          <div style="font-size:0.9rem;line-height:1.7;">
-            <div>Bitcoin (BTC) — <span>{prices.btc}</span></div>
-            <div>Ethereum (ETH) — <span>{prices.eth}</span></div>
-            <div>Gold (XAU) — <span>{prices.gold}</span></div>
-            <div>Silver (XAG) — <span>{prices.silver}</span></div>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-      <div class="card">
-        <h2>For Borrowers</h2>
-        <ul style="color:var(--muted);font-size:0.9rem;padding-left:1.1rem;">
-          {featuresBorrower.map((f) => <li>{f}</li>)}
-        </ul>
-      </div>
-      <div class="card">
-        <h2>For Lenders / Investors</h2>
-        <ul style="color:var(--muted);font-size:0.9rem;padding-left:1.1rem;">
-          {featuresLender.map((f) => <li>{f}</li>)}
-        </ul>
-      </div>
-    </section>
-
-    <!-- BORROW FORM -->
-    <section id="borrow" class="features" style="margin-top:3rem;">
-      <div class="card">
-        <h2>Borrow Crypto</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
-          Submit a crypto loan request backed by stablecoins or tokenized assets.
-          We match you with lenders who review your request. Payments remain
-          wallet-to-wallet.
-        </p>
-
-        <form name="borrow" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="borrow" />
-
-          <input type="text" name="name" placeholder="Your name" required class="input" /><br />
-          <input type="email" name="email" placeholder="Email" required class="input" /><br />
-          <input type="text" name="wallet" placeholder="Your wallet address" required class="input" /><br />
-
-          <input type="number" name="amount" placeholder="Loan amount (USDT/DAI)" required class="input" /><br />
-
-          <select name="asset" required class="input">
-            <option value="">Asset type</option>
-            <option value="stablecoin">Stablecoin (USDT/USDC/DAI)</option>
-            <option value="btc">Bitcoin (BTC)</option>
-            <option value="eth">Ethereum (ETH)</option>
-          </select><br />
-
-          <textarea name="reason" rows="5"
-            placeholder="Explain why you need this loan and any collateral you offer"
-            class="input"
-          ></textarea><br />
-
-          <button class="btn-primary btn">Submit loan request</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- INVEST FORM -->
-    <section id="invest" class="features" style="margin-top:3rem;">
-      <div class="card">
-        <h2>Invest & Earn Yield</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
-          Earn yield by lending stablecoins or backing tokenized real
-          assets. We alert you when a matching borrower or asset deal is
-          available.
-        </p>
-
-        <form name="lend" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="lend" />
-
-          <input type="text" name="name" placeholder="Your name" required class="input" /><br />
-          <input type="email" name="email" placeholder="Email" required class="input" /><br />
-          <input type="text" name="wallet" placeholder="Your wallet address" required class="input" /><br />
-
-          <select name="token" required class="input">
-            <option value="">Investing currency</option>
-            <option value="USDT">USDT</option>
-            <option value="USDC">USDC</option>
-            <option value="DAI">DAI</option>
-            <option value="ETH">ETH</option>
-            <option value="BTC">BTC</option>
-          </select><br />
-
-          <input type="number" name="amount" placeholder="Investment amount" required class="input" /><br />
-
-          <button class="btn-primary btn">I Want to Invest</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- TOKENIZE -->
-    <section id="tokenize" class="features" style="margin-top:3rem;">
-      <div class="card">
-        <h2>Tokenize Your Asset</h2>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">
-          Own a real asset? We help you tokenize it using smart contracts so
-          crypto investors can fund you directly. Gold, property, inventory,
-          business revenue, vehicles – you name it.
-        </p>
-
-        <form name="tokenize" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="tokenize" />
-
-          <input type="text" name="name" placeholder="Your name" required class="input" /><br />
-          <input type="email" name="email" placeholder="Email" required class="input" /><br />
-          <input type="text" name="wallet" placeholder="Your wallet address" required class="input" /><br />
-
-          <input type="text" name="asset" placeholder="Asset description (e.g. Gold bar, Apartment in Oslo, Company equity)" required class="input" /><br />
-
-          <textarea name="details" rows="5"
-            placeholder="Explain your asset, intended funding, token model, buyback plans, etc."
-            class="input"
-          ></textarea><br />
-
-          <button class="btn-primary btn">Apply for Tokenization</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="features" style="margin-top:3rem;">
-      <div class="card">
-        <h2>Contact</h2>
-        <p><strong>CEO:</strong> Robert</p>
-        <p><strong>Email:</strong> robertamicolsen@gmail.com</p>
-        <p><strong>Phone:</strong> 929 28 373</p>
-        <p><strong>Location:</strong> Oslo, Norway</p>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <p>
-        <strong>Note:</strong> Amicbridge is a crypto matching and
-        tokenization platform. We do not hold custody of funds, guarantee
-        repayment, or act as a financial intermediary. All activity is
-        wallet-to-wallet through smart contracts. Always verify who you
-        transact with and never share private keys.
-      </p>
-    </footer>
-  </div>
-</body>
-</html>
+  });
+</script>
