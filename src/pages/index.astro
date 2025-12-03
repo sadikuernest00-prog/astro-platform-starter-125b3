@@ -27,39 +27,64 @@ const listings = [
   },
   {
     id: 3,
-    title: "Rent rare game NFT skin",
-    type: "digital",
-    symbol: "NFT",
+    title: "2-bedroom apartment near city center",
+    type: "property",
+    symbol: "APT",
     amount: 1,
-    rate: 3.0,
-    duration: 14,
+    rate: 120,          // e.g. per night or per day – up to you later
+    duration: 7,
     collateral: 200,
-    lender: "PixelVault"
+    lender: "OsloHost",
+    location: "Oslo, Norway"
   },
   {
     id: 4,
-    title: "High-end RTX 4090 rig rental",
-    type: "physical",
-    symbol: "PC",
+    title: "Family house weekly rental",
+    type: "property",
+    symbol: "HOUSE",
     amount: 1,
-    rate: 9.0,
-    duration: 7,
+    rate: 900,          // e.g. per week
+    duration: 14,
     collateral: 250,
-    lender: "RigHub",
-    location: "Oslo, Norway"
+    lender: "NordicStay",
+    location: "Bergen, Norway"
+  },
+  {
+    id: 5,
+    title: "Electric car weekend rental",
+    type: "vehicle",
+    symbol: "EV",
+    amount: 1,
+    rate: 80,           // e.g. per day
+    duration: 3,
+    collateral: 150,
+    lender: "CityDriver",
+    location: "Trondheim, Norway"
+  },
+  {
+    id: 6,
+    title: "Borrow 100g gold with collateral",
+    type: "gold",
+    symbol: "XAU",
+    amount: 100,        // grams
+    rate: 6.5,          // % yearly, for example
+    duration: 60,
+    collateral: 180,
+    lender: "BullionVault"
   }
 ];
 
 const cryptoListings   = listings.filter(l => l.type === "crypto");
-const digitalListings  = listings.filter(l => l.type === "digital");
-const physicalListings = listings.filter(l => l.type === "physical");
+const propertyListings = listings.filter(l => l.type === "property");
+const vehicleListings  = listings.filter(l => l.type === "vehicle");
+const goldListings     = listings.filter(l => l.type === "gold");
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>AmicBridge — Lend & Borrow Assets Safely</title>
+    <title>AmicBridge — Lend & Borrow Crypto, Homes, Cars & Gold</title>
 
     <!-- Pico for base styling -->
     <link
@@ -639,12 +664,12 @@ const physicalListings = listings.filter(l => l.type === "physical");
         <div class="hero-main">
           <div class="hero-highlight">
             <span class="pulse-dot"></span>
-            Early access · Asset lending hub
+            Early access · Multi-asset lending hub
           </div>
-          <h1>Earn from your assets. Borrow with clear rules.</h1>
+          <h1>Earn from your crypto, home, car, or gold.</h1>
           <p class="lead">
-            AmicBridge lets people lend or rent out crypto, digital items, and real-world gear.
-            Borrowers can quickly find offers and send requests under transparent, over-collateralized terms.
+            AmicBridge lets people lend or rent out crypto, apartments, houses, cars, and even
+            gold. Borrowers can quickly find offers and send requests with transparent collateral terms.
           </p>
 
           <div class="hero-actions">
@@ -660,12 +685,12 @@ const physicalListings = listings.filter(l => l.type === "physical");
           </div>
 
           <div class="hero-subline">
-            One place to <strong>list assets</strong>, <strong>receive borrow requests</strong>,
-            and <strong>find offers</strong> that match exactly what you need.
+            One place to <strong>list assets</strong>, <strong>receive borrow requests</strong>, and
+            <strong>find offers</strong> across crypto, property, vehicles, and gold.
           </div>
 
           <div class="hero-metrics">
-            <div class="hero-metric-pill">Crypto · Digital · Physical</div>
+            <div class="hero-metric-pill">Crypto · Apartments & houses · Cars · Gold</div>
             <div class="hero-metric-pill">Over-collateralized loan design</div>
             <div class="hero-metric-pill">Escrow & reputation (roadmap)</div>
           </div>
@@ -674,8 +699,8 @@ const physicalListings = listings.filter(l => l.type === "physical");
         <aside class="hero-aside">
           <div class="aside-heading">Marketplace snapshot (demo)</div>
           <div class="aside-description">
-            These numbers come from mock data while you’re building.
-            Later this box can show live stats from your database or smart contracts.
+            These numbers come from mock data while you’re building. Later this panel can show
+            live stats from your backend or smart contracts.
           </div>
           <div class="mini-grid">
             <div class="mini-card">
@@ -683,16 +708,16 @@ const physicalListings = listings.filter(l => l.type === "physical");
               <div class="mini-value">{cryptoListings.length} active</div>
             </div>
             <div class="mini-card">
-              <div class="mini-label">Digital items</div>
-              <div class="mini-value">{digitalListings.length} listed</div>
+              <div class="mini-label">Apartments & houses</div>
+              <div class="mini-value">{propertyListings.length} listed</div>
             </div>
             <div class="mini-card">
-              <div class="mini-label">Physical gear</div>
-              <div class="mini-value">{physicalListings.length} available</div>
+              <div class="mini-label">Cars</div>
+              <div class="mini-value">{vehicleListings.length} available</div>
             </div>
             <div class="mini-card">
-              <div class="mini-label">Target collateral</div>
-              <div class="mini-value">150%+</div>
+              <div class="mini-label">Gold positions</div>
+              <div class="mini-value">{goldListings.length} offers</div>
             </div>
           </div>
           <div class="aside-footer">
@@ -709,19 +734,19 @@ const physicalListings = listings.filter(l => l.type === "physical");
         <section id="lend-section" class="section-block">
           <div class="section-header">
             <h2>Start lending your assets</h2>
-            <span class="pill-tag">Create listings · Receive requests</span>
+            <span class="pill-tag">Crypto · Property · Cars · Gold</span>
           </div>
           <p class="section-sub">
-            As a lender, you can register which assets you want to lend and on what terms.
-            Borrowers send you requests, and you decide who to accept.
+            As a lender, you register which assets you want to lend and on what terms. Borrowers
+            send you requests; you decide who to accept.
           </p>
 
           <div class="lender-grid">
             <article class="action-card">
               <h3>List a new asset to lend</h3>
               <p>
-                Create a lending offer for your crypto, digital items, or physical gear. Set the
-                interest, duration, and minimum collateral you require.
+                Create a lending offer for your crypto, apartments, houses, cars, or gold.
+                Set the interest, duration, and minimum collateral you require.
               </p>
               <a href="/lend">
                 <button class="primary" type="button">Create lending offer</button>
@@ -732,7 +757,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
               <h3>Review borrow requests</h3>
               <p>
                 See who wants to borrow your assets, read their messages, and accept or reject
-                requests based on their reputation and terms.
+                requests based on their reputation and your preferences.
               </p>
               <a href="/requests">
                 <button class="secondary outline" type="button">Go to my requests</button>
@@ -742,7 +767,7 @@ const physicalListings = listings.filter(l => l.type === "physical");
 
           <p class="muted">
             Tip: In your backend, connect <code>/lend</code> to a “create listing” form,
-            and <code>/requests</code> to the page that shows incoming loan requests
+            and <code>/requests</code> to the page that shows incoming loan or rental requests
             for your existing listings.
           </p>
         </section>
@@ -751,19 +776,20 @@ const physicalListings = listings.filter(l => l.type === "physical");
         <section id="borrow-section" class="section-block">
           <div class="section-header">
             <h2>Find assets to borrow</h2>
-            <span class="pill-tag">Search offers · Send requests</span>
+            <span class="pill-tag">Crypto · Homes · Cars · Gold</span>
           </div>
           <p class="section-sub">
-            Use filters to explore what lenders are offering. Once you find a match, open
-            the listing, read the terms, and send a borrow request.
+            Use filters to explore what lenders are offering. Once you find a match, open the
+            listing, read the terms, and send a borrow request.
           </p>
 
           <div class="search-row">
-            <input type="search" placeholder="Search by asset, symbol, lender..." />
+            <input type="search" placeholder="Search by asset, symbol, location, lender..." />
             <div class="filter-chips">
               <span class="filter-chip">Crypto</span>
-              <span class="filter-chip">Digital items</span>
-              <span class="filter-chip">Physical gear</span>
+              <span class="filter-chip">Apartments & houses</span>
+              <span class="filter-chip">Cars</span>
+              <span class="filter-chip">Gold</span>
             </div>
           </div>
 
@@ -778,18 +804,24 @@ const physicalListings = listings.filter(l => l.type === "physical");
                   <h3 class="card-title">{l.title}</h3>
                   <div class="card-asset">
                     {l.type === "crypto" && "Crypto · "}
-                    {l.type === "digital" && "Digital asset · "}
-                    {l.type === "physical" && "Physical asset · "}
-                    {l.symbol && `${l.symbol} · `}Duration: {l.duration} days
+                    {l.type === "property" && "Apartment / House · "}
+                    {l.type === "vehicle" && "Car · "}
+                    {l.type === "gold" && "Gold · "}
+                    {l.symbol && `${l.symbol} · `}
+                    Duration: {l.duration} days
                     {l.location && ` · ${l.location}`}
                   </div>
                   <div class="card-row">
                     <span>Amount</span>
-                    <span>{l.amount}</span>
+                    <span>
+                      {l.type === "gold"
+                        ? `${l.amount} g`
+                        : l.amount}
+                    </span>
                   </div>
                   <div class="card-row">
                     <span>Interest / rate</span>
-                    <span>{l.rate}%</span>
+                    <span>{l.rate}{l.type === "crypto" || l.type === "gold" ? "% APR" : ""}</span>
                   </div>
                   <div class="card-row">
                     <span>Min collateral / deposit</span>
@@ -821,8 +853,8 @@ const physicalListings = listings.filter(l => l.type === "physical");
                 Lenders list, borrowers explore
               </h3>
               <p class="muted">
-                Lenders register which assets they want to lend and under what rules. Borrowers
-                browse offers and filter by type, rate, duration, and location.
+                Lenders register which assets they want to lend – crypto, apartments, houses, cars,
+                or gold. Borrowers browse offers and filter by type, rate, duration, and location.
               </p>
             </article>
             <article class="hiw-card">
@@ -831,8 +863,8 @@ const physicalListings = listings.filter(l => l.type === "physical");
                 Requests & approvals
               </h3>
               <p class="muted">
-                Borrowers send requests directly from each listing. Lenders review messages
-                and decide who to approve based on trust and terms.
+                Borrowers send requests directly from each listing. Lenders review messages and
+                decide who to approve based on trust, collateral, and timing.
               </p>
             </article>
             <article class="hiw-card">
@@ -841,9 +873,9 @@ const physicalListings = listings.filter(l => l.type === "physical");
                 Escrow, collateral, completion
               </h3>
               <p class="muted">
-                Once your backend and smart contracts are live, collateral or deposits can be
-                held in escrow. When loans are repaid or assets returned, everything settles
-                according to the agreed rules.
+                Once your backend and smart contracts or payment flows are live, collateral or
+                deposits can be held in escrow. When loans are repaid or assets returned, everything
+                settles according to the agreed rules.
               </p>
             </article>
           </div>
@@ -856,19 +888,19 @@ const physicalListings = listings.filter(l => l.type === "physical");
           </div>
           <p class="section-sub">
             The goal for AmicBridge is to become the safest place on the internet to lend and
-            borrow between people — for both crypto and real-world assets.
+            borrow between people – across crypto, property, vehicles, and gold.
           </p>
           <div class="trust-pills">
-            <span class="trust-pill">Transparent interest & collateral terms</span>
+            <span class="trust-pill">Transparent terms for every listing</span>
             <span class="trust-pill">Reputation & rating system (roadmap)</span>
             <span class="trust-pill">Escrow integrations for crypto & fiat</span>
-            <span class="trust-pill">Designed for global asset lending</span>
+            <span class="trust-pill">Over-collateralized loan structures</span>
           </div>
         </section>
       </main>
 
       <footer class="page-footer">
-        AmicBridge — unified asset lending & rental marketplace. This interface uses demo data only
+        AmicBridge — multi-asset lending & rental marketplace. This interface uses demo data only
         and is not financial advice or a live protocol.
       </footer>
     </div>
