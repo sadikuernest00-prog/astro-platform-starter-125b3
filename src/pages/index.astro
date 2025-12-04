@@ -1,78 +1,15 @@
-
 ---
-const features = [
-  {
-    title: "Peer-to-peer by design",
-    body: "Connect directly with people who want to borrow or lend. AmicBridge focuses on matching verified investors and borrowers, not taking custody of your funds."
-  },
-  {
-    title: "Transparent terms",
-    body: "Every lending offer and borrowing request shows the rate, duration, collateral and fees up front—no hidden clauses or surprise charges."
-  },
-  {
-    title: "Non-custodial approach",
-    body: "You keep control of your assets in your own wallet or bank account. AmicBridge facilitates agreements and tracking, not asset storage."
-  }
-];
-
-const borrowerSteps = [
-  {
-    title: "Create your profile",
-    body: "Tell investors who you are, what you need financing for, and how you plan to repay."
-  },
-  {
-    title: "Submit a loan request",
-    body: "Choose your requested amount, term, and max interest rate. Add collateral details if relevant."
-  },
-  {
-    title: "Receive offers from investors",
-    body: "Review offers from multiple lenders, compare terms, and accept the agreement that fits you best."
-  }
-];
-
-const investorSteps = [
-  {
-    title: "Define your strategy",
-    body: "Choose your target return range, preferred risk level, and the types of borrowers you want to support."
-  },
-  {
-    title: "Review loan requests",
-    body: "Browse verified requests, see risk information, and filter by country, term length and collateral."
-  },
-  {
-    title: "Fund and monitor",
-    body: "Fund the loans that match your strategy and track performance from a single dashboard."
-  }
-];
-
-const faqs = [
-  {
-    q: "Is AmicBridge a bank or broker?",
-    a: "No. AmicBridge is a technology platform that connects people who want to borrow and lend. We do not give investment advice, we do not guarantee returns, and we do not hold client funds."
-  },
-  {
-    q: "Are returns guaranteed?",
-    a: "No. All lending and investing involves risk, including the possible loss of principal. Borrowers may default, and investors must be prepared for that risk."
-  },
-  {
-    q: "Who can use the platform?",
-    a: "Usage may be restricted in some countries due to local regulations. Users must be adults in their jurisdiction and pass basic identity checks before they can post requests or offers."
-  },
-  {
-    q: "How are users verified?",
-    a: "We use identity verification (KYC) and basic risk checks. However, verification does not eliminate risk or guarantee that a borrower will repay."
-  }
-];
+const year = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>AmicBridge – Peer-to-Peer Investing & Lending Platform</title>
+    <title>AmicBridge – Borrow, Lend & Investment Strategy Requests</title>
     <meta
       name="description"
-      content="AmicBridge is a peer-to-peer platform where people can request loans or invest in real borrowers, with transparent terms and a non-custodial approach."
+      content="AmicBridge lets people send requests to borrow, lend, or ask for paid investment strategy advice in a transparent peer-to-peer way."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
@@ -86,372 +23,244 @@ const faqs = [
         </div>
 
         <nav class="nav">
-          <a href="#how-it-works" class="nav-link">How it works</a>
           <a href="#borrow" class="nav-link">Borrow</a>
-          <a href="#invest" class="nav-link">Invest</a>
-          <a href="#security" class="nav-link">Trust & Security</a>
-          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#lend" class="nav-link">Lend</a>
+          <a href="#strategy" class="nav-link">Investment strategy</a>
         </nav>
-
-        <div class="nav-actions">
-          <button class="btn btn-ghost">Sign in</button>
-          <button class="btn btn-primary">Create account</button>
-        </div>
       </div>
     </header>
 
     <main>
       <!-- HERO -->
       <section class="hero">
-        <div class="container hero-grid">
+        <div class="container hero-inner">
           <div class="hero-text">
-            <p class="eyebrow">Peer-to-peer finance, built for transparency</p>
-            <h1>Invest and borrow directly with people, not institutions.</h1>
+            <p class="hero-tagline">Simple peer-to-peer finance</p>
+            <h1>Borrow, lend, and request investment strategy in one place.</h1>
             <p class="hero-subtitle">
-              AmicBridge connects individuals who want to grow their capital with
-              borrowers who need fair, transparent financing. No unrealistic promises,
-              no hidden fees—just clear terms between verified people.
+              AmicBridge is a concept platform where people can send clear requests:
+              ask for a loan, offer to lend, or pay for investment strategy
+              guidance. Every request starts with a simple form – no hype, no
+              hidden promises.
             </p>
 
-            <div class="hero-actions">
-              <a href="#invest" class="btn btn-primary">Start investing</a>
-              <a href="#borrow" class="btn btn-secondary">Request a loan</a>
+            <div class="hero-buttons">
+              <a href="#borrow" class="btn btn-primary">Request a loan</a>
+              <a href="#strategy" class="btn btn-ghost">Request strategy advice</a>
             </div>
 
-            <div class="hero-trust">
-              <p class="hero-trust-label">Built around three principles:</p>
-              <ul class="hero-trust-list">
-                <li>Non-custodial by default</li>
-                <li>Clear risk disclosures</li>
-                <li>Individual-to-individual agreements</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <h2 class="hero-card-title">Sample loan request</h2>
-            <p class="hero-card-subtitle">
-              Example of how a real request might look to investors.
+            <p class="hero-note">
+              Important: AmicBridge does not guarantee any loan, profit, or result.
+              All finance involves risk, and you are responsible for your decisions.
             </p>
-            <div class="hero-card-item">
-              <span class="label">Borrower</span>
-              <span class="value">Verified individual · EU</span>
-            </div>
-            <div class="hero-card-item">
-              <span class="label">Amount</span>
-              <span class="value">€12,000</span>
-            </div>
-            <div class="hero-card-item">
-              <span class="label">Purpose</span>
-              <span class="value">Business expansion · Equipment</span>
-            </div>
-            <div class="hero-card-item">
-              <span class="label">Duration</span>
-              <span class="value">24 months</span>
-            </div>
-            <div class="hero-card-item">
-              <span class="label">Target interest</span>
-              <span class="value">8.2% p.a.</span>
-            </div>
-            <div class="hero-card-footnote">
-              Example only. Not an offer or recommendation. Returns are never guaranteed.
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- FEATURE STRIP -->
-      <section class="strip">
-        <div class="container strip-grid">
-          {features.map((f) => (
-            <article class="strip-card">
-              <h3>{f.title}</h3>
-              <p>{f.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <!-- HOW IT WORKS -->
-      <section id="how-it-works" class="section">
-        <div class="container">
-          <h2 class="section-title">How AmicBridge works</h2>
-          <p class="section-lead">
-            AmicBridge is a marketplace where people publish borrowing requests and
-            investors respond with lending offers. The platform helps you structure
-            and track agreements, but you always see the real counterparty.
-          </p>
-
-          <div class="two-col">
-            <div>
-              <h3 class="subheading">For borrowers</h3>
-              <ol class="steps">
-                {borrowerSteps.map((s, i) => (
-                  <li class="step">
-                    <span class="step-number">{i + 1}</span>
-                    <div class="step-content">
-                      <h4>{s.title}</h4>
-                      <p>{s.body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div>
-              <h3 class="subheading">For investors</h3>
-              <ol class="steps">
-                {investorSteps.map((s, i) => (
-                  <li class="step">
-                    <span class="step-number">{i + 1}</span>
-                    <div class="step-content">
-                      <h4>{s.title}</h4>
-                      <p>{s.body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- BORROWER FORM -->
-      <section id="borrow" class="section section-alt">
-        <div class="container two-col">
-          <div>
-            <h2 class="section-title">Request a loan from real people</h2>
-            <p class="section-lead">
-              Describe your situation, set the boundaries you are comfortable with,
-              and share your request with a pool of potential lenders. Investors can
-              respond with offers that match your terms.
+      <!-- THREE REQUEST TYPES -->
+      <section class="section">
+        <div class="container cards-grid">
+          <!-- BORROW CARD -->
+          <article id="borrow" class="card">
+            <h2>Borrow money from people</h2>
+            <p class="card-text">
+              Send a request to potential lenders with the amount you need, how long
+              you want to borrow, and how you plan to repay.
             </p>
-            <ul class="bullet-list">
-              <li>Explain your purpose clearly to build trust.</li>
-              <li>Choose a realistic interest rate and duration.</li>
-              <li>Optionally add collateral information for lower rates.</li>
-            </ul>
-            <p class="disclaimer">
-              Submitting a request does not guarantee funding. All offers are
-              subject to individual investor decisions and applicable regulations.
-            </p>
-          </div>
 
-          <form class="card form" method="post" action="#">
-            <h3 class="form-title">Create a sample loan request</h3>
-            <div class="form-row">
+            <form class="form" method="post" action="#">
               <label>
-                Full name
-                <input type="text" name="name" placeholder="Jane Doe" required />
+                Name
+                <input type="text" name="borrower_name" placeholder="Your full name" required />
               </label>
-              <label>
-                Country / region
-                <input type="text" name="country" placeholder="Norway, Germany, etc." required />
-              </label>
-            </div>
 
-            <div class="form-row">
               <label>
-                Requested amount
-                <input type="number" name="amount" placeholder="10000" min="1" required />
+                Email
+                <input type="email" name="borrower_email" placeholder="you@example.com" required />
               </label>
+
+              <div class="form-row">
+                <label>
+                  Amount wanted
+                  <input type="number" name="borrow_amount" placeholder="10000" min="1" required />
+                </label>
+                <label>
+                  Currency
+                  <select name="borrow_currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="NOK">NOK</option>
+                  </select>
+                </label>
+              </div>
+
               <label>
-                Currency
-                <select name="currency">
-                  <option value="EUR">EUR</option>
-                  <option value="USD">USD</option>
-                  <option value="GBP">GBP</option>
-                  <option value="NOK">NOK</option>
+                How long do you want to borrow?
+                <select name="borrow_duration">
+                  <option value="6m">Up to 6 months</option>
+                  <option value="12m">Up to 12 months</option>
+                  <option value="24m">Up to 24 months</option>
+                  <option value="36m">Up to 36 months</option>
                 </select>
               </label>
-            </div>
 
-            <div class="form-row">
               <label>
-                Preferred duration
-                <select name="duration">
-                  <option value="6">Up to 6 months</option>
-                  <option value="12">Up to 12 months</option>
-                  <option value="24">Up to 24 months</option>
-                  <option value="36">Up to 36 months</option>
-                </select>
+                Max interest you can accept (per year)
+                <input type="number" name="borrow_rate" placeholder="10" min="1" max="40" />
               </label>
+
               <label>
-                Max annual interest rate
-                <input type="number" name="rate" placeholder="10" min="1" max="40" />
+                What is the loan for?
+                <textarea
+                  name="borrow_purpose"
+                  rows="3"
+                  placeholder="Explain why you need the money and how you plan to repay."
+                ></textarea>
               </label>
-            </div>
 
-            <label class="form-block">
-              Purpose of the loan
-              <textarea
-                name="purpose"
-                rows="3"
-                placeholder="Explain what you will use the funds for and how you plan to repay."
-              ></textarea>
-            </label>
+              <button type="submit" class="btn btn-primary btn-full">
+                Send borrow request
+              </button>
 
-            <label class="form-block">
-              Collateral (optional)
-              <textarea
-                name="collateral"
-                rows="2"
-                placeholder="Describe any assets or guarantees you may offer."
-              ></textarea>
-            </label>
-
-            <button type="submit" class="btn btn-primary btn-full">
-              Submit loan request (demo)
-            </button>
-
-            <p class="form-footnote">
-              This form is for demonstration only. In a live environment, identity checks
-              and eligibility rules would apply, and you should read all legal terms
-              before sending requests or offers.
-            </p>
-          </form>
-        </div>
-      </section>
-
-      <!-- INVESTOR SIGNUP -->
-      <section id="invest" class="section">
-        <div class="container two-col">
-          <div>
-            <h2 class="section-title">Build your own investing strategy</h2>
-            <p class="section-lead">
-              Use AmicBridge as part of a broader investment approach. Diversify
-              across multiple borrowers, sizes and terms instead of concentrating
-              on a single loan.
-            </p>
-            <ul class="bullet-list">
-              <li>Filter requests by risk profile, country and collateral.</li>
-              <li>Spread capital across many smaller loans.</li>
-              <li>Track repayments and performance in one dashboard.</li>
-            </ul>
-            <p class="disclaimer">
-              Important: Nothing on this website is investment advice. You are
-              responsible for your own decisions, and past performance does not
-              predict future results.
-            </p>
-          </div>
-
-          <form class="card form" method="post" action="#">
-            <h3 class="form-title">Join the investor waitlist</h3>
-            <label class="form-block">
-              Email address
-              <input type="email" name="email" placeholder="you@example.com" required />
-            </label>
-
-            <label class="form-block">
-              Investment focus
-              <select name="focus">
-                <option value="balanced">Balanced – risk and return</option>
-                <option value="conservative">Conservative – lower risk</option>
-                <option value="growth">Growth – higher risk tolerance</option>
-              </select>
-            </label>
-
-            <label class="form-block">
-              Comment (optional)
-              <textarea
-                name="notes"
-                rows="2"
-                placeholder="Share what kind of opportunities you are interested in."
-              ></textarea>
-            </label>
-
-            <button type="submit" class="btn btn-secondary btn-full">
-              Request early access
-            </button>
-
-            <p class="form-footnote">
-              By requesting access, you confirm you understand that peer-to-peer lending
-              is risky and that AmicBridge does not guarantee repayments or returns.
-            </p>
-          </form>
-        </div>
-      </section>
-
-      <!-- TRUST & SECURITY -->
-      <section id="security" class="section section-alt">
-        <div class="container">
-          <h2 class="section-title">Trust, security & responsible use</h2>
-          <p class="section-lead">
-            A platform like this must put risk and transparency front and center.
-            AmicBridge is designed to help you understand who you are dealing with
-            and what can go wrong—not to hide it.
-          </p>
-
-          <div class="grid-3">
-            <article class="card">
-              <h3>Identity & verification</h3>
-              <p>
-                All users complete identity checks before they can post requests
-                or offers. Additional verification may apply for larger amounts.
+              <p class="card-note">
+                This is only a request. Lenders are free to say no, and no money is
+                moved automatically.
               </p>
-            </article>
-            <article class="card">
-              <h3>Clear documentation</h3>
-              <p>
-                Agreements are documented in plain language alongside formal terms.
-                Everyone sees the same information at the same time.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Risk disclosure</h3>
-              <p>
-                Borrower risk signals, missed payments and defaults are visible to
-                investors. You can never remove risk, only understand and manage it.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
+            </form>
+          </article>
 
-      <!-- FAQ -->
-      <section id="faq" class="section">
-        <div class="container">
-          <h2 class="section-title">Frequently asked questions</h2>
-          <div class="faq-list">
-            {faqs.map((item) => (
-              <details class="faq-item">
-                <summary class="faq-question">{item.q}</summary>
-                <p class="faq-answer">{item.a}</p>
-              </details>
-            ))}
-          </div>
+          <!-- LEND CARD -->
+          <article id="lend" class="card">
+            <h2>Offer to lend money</h2>
+            <p class="card-text">
+              Share how much you want to lend, your expected interest rate, and what
+              kind of borrowers you prefer.
+            </p>
+
+            <form class="form" method="post" action="#">
+              <label>
+                Name
+                <input type="text" name="lender_name" placeholder="Your full name" required />
+              </label>
+
+              <label>
+                Email
+                <input type="email" name="lender_email" placeholder="you@example.com" required />
+              </label>
+
+              <div class="form-row">
+                <label>
+                  Amount to lend
+                  <input type="number" name="lend_amount" placeholder="5000" min="1" required />
+                </label>
+                <label>
+                  Currency
+                  <select name="lend_currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="NOK">NOK</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Target interest (per year)
+                <input type="number" name="lend_rate" placeholder="8" min="1" max="40" />
+              </label>
+
+              <label>
+                What kind of borrowers do you prefer?
+                <textarea
+                  name="lend_profile"
+                  rows="3"
+                  placeholder="Example: small businesses, private persons, with or without collateral, etc."
+                ></textarea>
+              </label>
+
+              <button type="submit" class="btn btn-secondary btn-full">
+                Send lending offer
+              </button>
+
+              <p class="card-note">
+                Lending is risky. Borrowers can fail to pay back. You should never
+                lend more than you can afford to lose.
+              </p>
+            </form>
+          </article>
+
+          <!-- STRATEGY CARD -->
+          <article id="strategy" class="card">
+            <h2>Request investment strategy advice</h2>
+            <p class="card-text">
+              Send a paid request to get personal investment strategy ideas. You
+              describe your situation and how much you are willing to pay for advice.
+            </p>
+
+            <form class="form" method="post" action="#">
+              <label>
+                Name
+                <input type="text" name="strategy_name" placeholder="Your full name" required />
+              </label>
+
+              <label>
+                Email
+                <input type="email" name="strategy_email" placeholder="you@example.com" required />
+              </label>
+
+              <label>
+                Budget for strategy advice
+                <input
+                  type="number"
+                  name="strategy_budget"
+                  placeholder="200"
+                  min="1"
+                  required
+                />
+              </label>
+
+              <label>
+                What is your investment goal?
+                <textarea
+                  name="strategy_goal"
+                  rows="3"
+                  placeholder="Example: long-term growth, saving for house, balancing risk, etc."
+                ></textarea>
+              </label>
+
+              <label>
+                What can you invest in? (optional)
+                <textarea
+                  name="strategy_assets"
+                  rows="2"
+                  placeholder="Example: stocks, funds, crypto, cash, etc."
+                ></textarea>
+              </label>
+
+              <button type="submit" class="btn btn-ghost btn-full">
+                Send strategy request
+              </button>
+
+              <p class="card-note">
+                Any strategy ideas you receive are not guarantees. Markets can go up
+                and down, and nobody can promise profit.
+              </p>
+            </form>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <div class="footer-brand">
-          <div class="logo">
-            <span class="logo-mark">A</span>
-            <span class="logo-text">AmicBridge</span>
-          </div>
-          <p class="footer-text">
-            AmicBridge is a peer-to-peer platform concept. Any production use must
-            follow local laws and regulations. Nothing here is financial advice, and
-            your capital is always at risk.
-          </p>
-        </div>
-        <div class="footer-links">
-          <h4>Legal</h4>
-          <a href="#">Terms of use (draft)</a>
-          <a href="#">Risk disclosure (draft)</a>
-          <a href="#">Privacy notice (draft)</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div class="container footer-bottom-inner">
-          <span>© {new Date().getFullYear()} AmicBridge. All rights reserved.</span>
-          <span class="footer-note">
-            Not a bank. Not an investment advisor. Peer-to-peer connections only.
-          </span>
-        </div>
+        <p class="footer-main">
+          AmicBridge is a conceptual peer-to-peer platform design. It does not act
+          as a bank or licensed adviser. All examples are for information only.
+        </p>
+        <p class="footer-meta">
+          © {year} AmicBridge · Your decisions, your responsibility.
+        </p>
       </div>
     </footer>
   </body>
@@ -461,17 +270,16 @@ const faqs = [
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: #050816;
+      background: radial-gradient(circle at top, #1e293b, #020617);
       color: #f9fafb;
     }
 
     .page {
       min-height: 100vh;
-      background: radial-gradient(circle at top left, #1e293b, #020617 55%);
     }
 
     .container {
-      max-width: 1120px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
@@ -480,21 +288,16 @@ const faqs = [
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(2, 6, 23, 0.95),
-        rgba(2, 6, 23, 0.7),
-        transparent
-      );
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      backdrop-filter: blur(16px);
+      background: rgba(2, 6, 23, 0.9);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
 
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem 1.5rem;
+      padding: 0.9rem 0;
     }
 
     .logo {
@@ -502,19 +305,18 @@ const faqs = [
       align-items: center;
       gap: 0.6rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
     }
 
     .logo-mark {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #38bdf8, #6366f1 50%, #0f172a);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95rem;
-      box-shadow: 0 0 24px rgba(59, 130, 246, 0.65);
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #6366f1, #0f172a);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.7);
+      font-size: 0.9rem;
     }
 
     .logo-text {
@@ -523,352 +325,177 @@ const faqs = [
 
     .nav {
       display: flex;
-      gap: 1.2rem;
+      gap: 1rem;
       font-size: 0.9rem;
     }
 
     .nav-link {
-      color: #cbd5f5;
+      color: #e5e7eb;
       text-decoration: none;
-      padding: 0.25rem 0;
+      padding-bottom: 0.1rem;
       border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
+      transition: border-color 0.15s ease, color 0.15s ease;
     }
 
     .nav-link:hover {
-      color: #e5e7eb;
       border-color: #6366f1;
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 0.4rem 1rem;
-      border: 1px solid transparent;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease,
-        box-shadow 0.15s ease, border-color 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(to right, #6366f1, #22c55e);
-      color: white;
-      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 50px rgba(79, 70, 229, 0.55);
-    }
-
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(148, 163, 184, 0.6);
-      color: #e5e7eb;
-    }
-
-    .btn-secondary:hover {
-      border-color: #6366f1;
-      background: rgba(15, 23, 42, 1);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border-color: rgba(148, 163, 184, 0.4);
-      color: #e5e7eb;
-    }
-
-    .btn-ghost:hover {
-      border-color: #6366f1;
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .btn-full {
-      width: 100%;
-      justify-content: center;
+      color: #ffffff;
     }
 
     .hero {
-      padding: 4.5rem 0 3.5rem;
+      padding: 3.2rem 0 2.2rem;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 3rem;
-      align-items: center;
+    .hero-inner {
+      max-width: 760px;
     }
 
     .hero-text h1 {
-      font-size: clamp(2.2rem, 3.1vw, 3rem);
+      font-size: clamp(2rem, 3vw, 2.6rem);
       line-height: 1.1;
-      margin: 0.35rem 0 0.9rem;
+      margin: 0.4rem 0 0.7rem;
+    }
+
+    .hero-tagline {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+      color: #a5b4fc;
     }
 
     .hero-subtitle {
       color: #cbd5f5;
-      margin-bottom: 1.6rem;
-      max-width: 34rem;
       font-size: 0.98rem;
+      margin-bottom: 1.5rem;
     }
 
-    .hero-actions {
+    .hero-buttons {
       display: flex;
       gap: 0.9rem;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
     }
 
-    .eyebrow {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #a5b4fc;
-    }
-
-    .hero-trust-label {
+    .hero-note {
       font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
       color: #9ca3af;
-      margin-bottom: 0.3rem;
+      max-width: 32rem;
     }
 
-    .hero-trust-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    .hero-trust-list li {
-      padding: 0.3rem 0.7rem;
+    .btn {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: radial-gradient(circle at top left, #0f172a, #020617);
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border-radius: 1.4rem;
-      padding: 1.6rem 1.5rem 1.4rem;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-card-title {
-      font-size: 1.05rem;
-      margin: 0 0 0.3rem;
-    }
-
-    .hero-card-subtitle {
-      margin: 0 0 1rem;
-      font-size: 0.86rem;
-      color: #9ca3af;
-    }
-
-    .hero-card-item {
-      display: flex;
-      justify-content: space-between;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid transparent;
       font-size: 0.9rem;
-      padding: 0.4rem 0;
-      border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
-    }
-
-    .hero-card-item:last-of-type {
-      border-bottom: none;
-      margin-bottom: 0.7rem;
-    }
-
-    .hero-card-item .label {
-      color: #9ca3af;
-    }
-
-    .hero-card-item .value {
-      font-weight: 500;
-    }
-
-    .hero-card-footnote {
-      font-size: 0.7rem;
-      color: #9ca3af;
-    }
-
-    .strip {
-      padding: 2.4rem 0 2.1rem;
-      border-top: 1px solid rgba(148, 163, 184, 0.15);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-      background: radial-gradient(circle at top, #020617, #020617);
-    }
-
-    .strip-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .strip-card {
-      padding: 1rem 1rem;
-      border-radius: 1rem;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      background: rgba(15, 23, 42, 0.85);
-      font-size: 0.9rem;
-    }
-
-    .strip-card h3 {
-      margin-top: 0;
-      font-size: 0.98rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .section {
-      padding: 3.9rem 0;
-    }
-
-    .section-alt {
-      background: radial-gradient(circle at top, #020617, #020617);
-      border-top: 1px solid rgba(148, 163, 184, 0.15);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-    }
-
-    .section-title {
-      font-size: 1.7rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .section-lead {
-      color: #cbd5f5;
-      max-width: 40rem;
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 2.1rem;
-      align-items: flex-start;
-    }
-
-    .subheading {
-      font-size: 1.05rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .steps {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .step {
-      display: flex;
-      gap: 0.8rem;
-      padding: 0.65rem 0;
-    }
-
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(129, 140, 248, 0.9);
+      cursor: pointer;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.78rem;
-      color: #c7d2fe;
-      margin-top: 0.25rem;
+      transition: background 0.15s ease, border-color 0.15s ease,
+        transform 0.1s ease, box-shadow 0.15s ease;
     }
 
-    .step-content h4 {
-      margin: 0 0 0.15rem;
-      font-size: 0.98rem;
+    .btn-primary {
+      background: linear-gradient(to right, #6366f1, #22c55e);
+      color: #ffffff;
+      box-shadow: 0 14px 35px rgba(79, 70, 229, 0.45);
     }
 
-    .step-content p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: #cbd5f5;
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 50px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.96);
+      border-color: rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .btn-ghost:hover,
+    .btn-secondary:hover {
+      border-color: #6366f1;
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .btn-full {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .section {
+      padding: 2.5rem 0 3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
     }
 
     .card {
-      border-radius: 1.2rem;
+      border-radius: 1rem;
       border: 1px solid rgba(148, 163, 184, 0.3);
       background: radial-gradient(circle at top left, #111827, #020617);
-      padding: 1.4rem 1.5rem;
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
+      padding: 1.4rem 1.3rem 1.2rem;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      font-size: 0.92rem;
     }
 
-    .bullet-list {
-      padding-left: 1.1rem;
-      margin: 0 0 0.8rem;
-      color: #e5e7eb;
-      font-size: 0.9rem;
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
     }
 
-    .bullet-list li {
-      margin-bottom: 0.3rem;
+    .card-text {
+      color: #cbd5f5;
+      margin-bottom: 0.9rem;
     }
 
-    .disclaimer {
+    .card-note {
+      margin-top: 0.6rem;
       font-size: 0.75rem;
       color: #9ca3af;
-      max-width: 34rem;
     }
 
     .form {
-      font-size: 0.9rem;
-    }
-
-    .form-title {
-      margin-top: 0;
-      margin-bottom: 0.8rem;
-      font-size: 1rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .form-block {
-      display: block;
-      margin-bottom: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.85rem;
     }
 
     label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #9ca3af;
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
     }
 
     input,
     select,
     textarea {
-      border-radius: 0.75rem;
+      border-radius: 0.7rem;
       border: 1px solid rgba(148, 163, 184, 0.4);
       background: rgba(15, 23, 42, 0.95);
       padding: 0.55rem 0.7rem;
       color: #e5e7eb;
       font: inherit;
-      resize: vertical;
       outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease,
-        background 0.15s ease;
+      resize: vertical;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease;
     }
 
     input:focus,
@@ -879,132 +506,58 @@ const faqs = [
       background: #020617;
     }
 
-    .form-footnote {
-      margin-top: 0.7rem;
-      font-size: 0.7rem;
-      color: #9ca3af;
-    }
-
-    .grid-3 {
+    .form-row {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.6rem;
-    }
-
-    .grid-3 .card {
-      box-shadow: none;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 0.7rem;
-      max-width: 46rem;
-    }
-
-    .faq-item {
-      border-radius: 0.9rem;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      padding: 0.6rem 0.9rem;
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .faq-question {
-      cursor: pointer;
-      list-style: none;
-      font-size: 0.9rem;
-      color: #e5e7eb;
-    }
-
-    .faq-answer {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-      color: #cbd5f5;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
     }
 
     .footer {
-      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 1.2rem 0 1.5rem;
       background: #020617;
-      padding-top: 1.8rem;
-      margin-top: 1.5rem;
+      font-size: 0.8rem;
       color: #9ca3af;
+      margin-top: 0.5rem;
     }
 
     .footer-inner {
       display: flex;
       justify-content: space-between;
-      gap: 2rem;
-      padding-bottom: 1.3rem;
-    }
-
-    .footer-text {
-      max-width: 24rem;
-      font-size: 0.8rem;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      font-size: 0.8rem;
-    }
-
-    .footer-links h4 {
-      margin: 0 0 0.35rem;
-      color: #e5e7eb;
-      font-size: 0.85rem;
-    }
-
-    .footer-links a {
-      color: #9ca3af;
-      text-decoration: none;
-    }
-
-    .footer-links a:hover {
-      color: #e5e7eb;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(148, 163, 184, 0.2);
-      padding: 0.7rem 0 0.9rem;
-      font-size: 0.75rem;
-    }
-
-    .footer-bottom-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       gap: 1rem;
+      align-items: center;
     }
 
-    .footer-note {
-      color: #e5e7eb;
+    .footer-main {
+      max-width: 32rem;
+    }
+
+    .footer-meta {
+      text-align: right;
     }
 
     @media (max-width: 960px) {
-      .hero-grid,
-      .two-col,
-      .strip-grid,
-      .grid-3,
-      .form-row,
-      .header-inner,
-      .footer-inner,
-      .footer-bottom-inner {
-        grid-template-columns: minmax(0, 1fr);
-        flex-direction: column;
-      }
-
       .header-inner {
+        flex-direction: column;
         align-items: flex-start;
-        gap: 0.75rem;
+        gap: 0.6rem;
       }
 
       .nav {
         flex-wrap: wrap;
-        row-gap: 0.3rem;
       }
 
-      .hero {
-        padding-top: 3rem;
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-meta {
+        text-align: left;
       }
     }
   </style>
