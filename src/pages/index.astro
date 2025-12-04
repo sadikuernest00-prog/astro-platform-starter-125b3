@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
     <title>AmicBridge – Borrow, Lend & Investment Strategy Requests</title>
     <meta
       name="description"
-      content="AmicBridge lets people send requests to borrow, lend, or ask for paid investment strategy advice in a transparent peer-to-peer way."
+      content="AmicBridge lets people send requests to borrow, lend (cash or crypto), or ask for paid investment strategy advice in a transparent peer-to-peer way."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
@@ -23,9 +23,12 @@ const year = new Date().getFullYear();
         </div>
 
         <nav class="nav">
+          <a href="#how" class="nav-link">How it works</a>
           <a href="#borrow" class="nav-link">Borrow</a>
           <a href="#lend" class="nav-link">Lend</a>
-          <a href="#strategy" class="nav-link">Investment strategy</a>
+          <a href="#strategy" class="nav-link">Strategy</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </nav>
       </div>
     </header>
@@ -36,12 +39,12 @@ const year = new Date().getFullYear();
         <div class="container hero-inner">
           <div class="hero-text">
             <p class="hero-tagline">Simple peer-to-peer finance</p>
-            <h1>Borrow, lend, and request investment strategy in one place.</h1>
+            <h1>Borrow, lend and request investment strategy – in one place.</h1>
             <p class="hero-subtitle">
               AmicBridge is a concept platform where people can send clear requests:
-              ask for a loan, offer to lend, or pay for investment strategy
-              guidance. Every request starts with a simple form – no hype, no
-              hidden promises.
+              ask for a loan, offer to lend cash or crypto, or pay for investment
+              strategy guidance. Every request starts with a simple form – no hype,
+              no fake promises.
             </p>
 
             <div class="hero-buttons">
@@ -51,24 +54,72 @@ const year = new Date().getFullYear();
 
             <p class="hero-note">
               Important: AmicBridge does not guarantee any loan, profit, or result.
-              All finance involves risk, and you are responsible for your decisions.
+              All finance and crypto use involve risk, including losing money. You
+              are always responsible for your own decisions.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- THREE REQUEST TYPES -->
+      <!-- HOW IT WORKS -->
+      <section id="how" class="section section-alt">
+        <div class="container">
+          <h2 class="section-title">How AmicBridge works (concept)</h2>
+          <p class="section-lead">
+            The idea is simple: people send requests, and other people answer them.
+            AmicBridge focuses on communication and transparency – not holding your
+            money.
+          </p>
+
+          <div class="how-grid">
+            <div class="how-step">
+              <span class="how-number">1</span>
+              <div>
+                <h3>Send a request</h3>
+                <p>
+                  Borrowers, lenders and people who want investment strategy fill
+                  out a short form describing what they need or offer.
+                </p>
+              </div>
+            </div>
+            <div class="how-step">
+              <span class="how-number">2</span>
+              <div>
+                <h3>Get contacted</h3>
+                <p>
+                  In a live version, requests could be shared with matching users,
+                  who can respond and ask questions before any agreement.
+                </p>
+              </div>
+            </div>
+            <div class="how-step">
+              <span class="how-number">3</span>
+              <div>
+                <h3>Decide together</h3>
+                <p>
+                  People decide off-platform how to move money (bank, wallet,
+                  etc.). AmicBridge would never ask for your bank password or
+                  private crypto keys.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REQUEST CARDS -->
       <section class="section">
         <div class="container cards-grid">
           <!-- BORROW CARD -->
           <article id="borrow" class="card">
-            <h2>Borrow money from people</h2>
+            <h2>Borrow money or crypto from people</h2>
             <p class="card-text">
               Send a request to potential lenders with the amount you need, how long
-              you want to borrow, and how you plan to repay.
+              you want to borrow, and how you plan to repay. You can ask for cash
+              (bank transfer) or crypto.
             </p>
 
-            <form class="form" method="post" action="#">
+            <form class="form js-demo-form" data-type="borrow" method="post" action="#">
               <label>
                 Name
                 <input type="text" name="borrower_name" placeholder="Your full name" required />
@@ -85,12 +136,14 @@ const year = new Date().getFullYear();
                   <input type="number" name="borrow_amount" placeholder="10000" min="1" required />
                 </label>
                 <label>
-                  Currency
+                  Currency / asset
                   <select name="borrow_currency">
-                    <option value="EUR">EUR</option>
-                    <option value="USD">USD</option>
-                    <option value="GBP">GBP</option>
-                    <option value="NOK">NOK</option>
+                    <option value="EUR">EUR (bank)</option>
+                    <option value="USD">USD (bank)</option>
+                    <option value="NOK">NOK (bank)</option>
+                    <option value="crypto_btc">BTC (crypto)</option>
+                    <option value="crypto_eth">ETH (crypto)</option>
+                    <option value="crypto_usdt">USDT (crypto)</option>
                   </select>
                 </label>
               </div>
@@ -119,26 +172,29 @@ const year = new Date().getFullYear();
                 ></textarea>
               </label>
 
+              <p class="form-status" aria-live="polite"></p>
+
               <button type="submit" class="btn btn-primary btn-full">
                 Send borrow request
               </button>
 
               <p class="card-note">
                 This is only a request. Lenders are free to say no, and no money is
-                moved automatically.
+                moved automatically by AmicBridge.
               </p>
             </form>
           </article>
 
           <!-- LEND CARD -->
           <article id="lend" class="card">
-            <h2>Offer to lend money</h2>
+            <h2>Offer to lend cash or crypto</h2>
             <p class="card-text">
               Share how much you want to lend, your expected interest rate, and what
-              kind of borrowers you prefer.
+              kind of borrowers you prefer. You can offer bank transfers or crypto
+              wallets.
             </p>
 
-            <form class="form" method="post" action="#">
+            <form class="form js-demo-form" data-type="lend" method="post" action="#">
               <label>
                 Name
                 <input type="text" name="lender_name" placeholder="Your full name" required />
@@ -155,12 +211,14 @@ const year = new Date().getFullYear();
                   <input type="number" name="lend_amount" placeholder="5000" min="1" required />
                 </label>
                 <label>
-                  Currency
+                  Currency / asset
                   <select name="lend_currency">
-                    <option value="EUR">EUR</option>
-                    <option value="USD">USD</option>
-                    <option value="GBP">GBP</option>
-                    <option value="NOK">NOK</option>
+                    <option value="EUR">EUR (bank)</option>
+                    <option value="USD">USD (bank)</option>
+                    <option value="NOK">NOK (bank)</option>
+                    <option value="crypto_btc">BTC (crypto)</option>
+                    <option value="crypto_eth">ETH (crypto)</option>
+                    <option value="crypto_usdt">USDT (crypto)</option>
                   </select>
                 </label>
               </div>
@@ -179,13 +237,15 @@ const year = new Date().getFullYear();
                 ></textarea>
               </label>
 
+              <p class="form-status" aria-live="polite"></p>
+
               <button type="submit" class="btn btn-secondary btn-full">
                 Send lending offer
               </button>
 
               <p class="card-note">
                 Lending is risky. Borrowers can fail to pay back. You should never
-                lend more than you can afford to lose.
+                lend more than you can afford to lose – especially with crypto.
               </p>
             </form>
           </article>
@@ -195,10 +255,11 @@ const year = new Date().getFullYear();
             <h2>Request investment strategy advice</h2>
             <p class="card-text">
               Send a paid request to get personal investment strategy ideas. You
-              describe your situation and how much you are willing to pay for advice.
+              describe your situation and how much you are willing to pay for
+              advice. This can include traditional assets or crypto.
             </p>
 
-            <form class="form" method="post" action="#">
+            <form class="form js-demo-form" data-type="strategy" method="post" action="#">
               <label>
                 Name
                 <input type="text" name="strategy_name" placeholder="Your full name" required />
@@ -238,16 +299,186 @@ const year = new Date().getFullYear();
                 ></textarea>
               </label>
 
+              <p class="form-status" aria-live="polite"></p>
+
               <button type="submit" class="btn btn-ghost btn-full">
                 Send strategy request
               </button>
 
               <p class="card-note">
-                Any strategy ideas you receive are not guarantees. Markets can go up
-                and down, and nobody can promise profit.
+                Any strategy ideas you receive are not guarantees. Markets – including
+                crypto – can move fast in both directions. Nobody can promise profit.
               </p>
             </form>
           </article>
+        </div>
+      </section>
+
+      <!-- TRUST & SECURITY -->
+      <section class="section section-alt">
+        <div class="container">
+          <h2 class="section-title">Trust, security and honesty</h2>
+          <p class="section-lead">
+            Money and crypto are serious. AmicBridge is designed around clear
+            expectations: what we do, and what we never do.
+          </p>
+
+          <ul class="trust-list">
+            <li>All traffic should use HTTPS in a live system.</li>
+            <li>
+              AmicBridge will never ask for your bank password, card PIN, or private
+              crypto keys.
+            </li>
+            <li>
+              Agreements are always between people. You decide who you trust – or do
+              not trust.
+            </li>
+            <li>
+              You can lose money. Defaults, hacks, and market moves are always
+              possible, especially with crypto.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section">
+        <div class="container">
+          <h2 class="section-title">Frequently asked questions</h2>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>Is this guaranteed or risk-free?</summary>
+              <p>
+                No. There are no guarantees here. Borrowers can default, markets can
+                crash, and crypto prices can move a lot. You must be ready for loss.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Is AmicBridge a bank or licensed adviser?</summary>
+              <p>
+                No. AmicBridge is a concept platform. It does not hold your money or
+                crypto and does not act as a regulated bank or investment adviser.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Who moves the money or crypto?</summary>
+              <p>
+                In the concept design, people move funds directly between themselves
+                (for example bank transfer or wallet-to-wallet). AmicBridge is only a
+                communication and request layer.
+              </p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Can I get rich quickly using this?</summary>
+              <p>
+                No realistic platform can promise that. Building wealth and managing
+                risk usually takes time, patience and education – not shortcuts.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section section-alt">
+        <div class="container contact-grid">
+          <div>
+            <h2 class="section-title">Contact</h2>
+            <p class="section-lead">
+              Questions, ideas or partnership requests? Reach out directly to the
+              founder.
+            </p>
+
+            <div class="contact-card">
+              <p><strong>CEO:</strong> Robert</p>
+              <p>
+                <strong>Email:</strong>
+                <a href="mailto:Robertamicolsen@gmail.com">Robertamicolsen@gmail.com</a>
+              </p>
+              <p class="contact-note">
+                Please do not send sensitive information (like passwords or private
+                keys) by email.
+              </p>
+            </div>
+          </div>
+
+          <form class="card form js-demo-form" data-type="contact" method="post" action="#">
+            <h3 class="contact-form-title">Send a message</h3>
+
+            <label>
+              Your name
+              <input type="text" name="contact_name" placeholder="Your name" required />
+            </label>
+
+            <label>
+              Your email
+              <input type="email" name="contact_email" placeholder="you@example.com" required />
+            </label>
+
+            <label>
+              Message
+              <textarea
+                name="contact_message"
+                rows="3"
+                placeholder="Write your question or idea here."
+              ></textarea>
+            </label>
+
+            <p class="form-status" aria-live="polite"></p>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              Send message (demo)
+            </button>
+
+            <p class="card-note">
+              This is a demo form. In a live system, messages would be delivered to
+              the AmicBridge team for review.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- LEGAL / RISK FOOTER TEXT -->
+      <section class="section legal-section">
+        <div class="container">
+          <h2 class="section-title">Legal & risk notice (draft)</h2>
+          <p class="section-lead">
+            This website is a prototype for a peer-to-peer lending and investment
+            strategy idea. It is not live financial infrastructure and not legal
+            advice.
+          </p>
+
+          <div class="legal-grid">
+            <div>
+              <h3>Terms of use (concept)</h3>
+              <p>
+                Users are responsible for their actions, communications and
+                agreements. AmicBridge does not verify every statement made by
+                users and does not guarantee that any loan or advice is suitable
+                for you.
+              </p>
+            </div>
+            <div>
+              <h3>Privacy (concept)</h3>
+              <p>
+                In a real system, personal data would be protected according to
+                local laws (for example GDPR in Europe). Only essential data would
+                be collected to run the service.
+              </p>
+            </div>
+            <div>
+              <h3>Risk disclosure</h3>
+              <p>
+                Borrowing, lending, and investing – especially with crypto –
+                always carry risk. You can lose some or all of your money. Never
+                use money you cannot afford to lose.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -256,13 +487,39 @@ const year = new Date().getFullYear();
       <div class="container footer-inner">
         <p class="footer-main">
           AmicBridge is a conceptual peer-to-peer platform design. It does not act
-          as a bank or licensed adviser. All examples are for information only.
+          as a bank, broker or licensed adviser. All examples are for information
+          only and not a recommendation to borrow, lend or invest.
         </p>
         <p class="footer-meta">
           © {year} AmicBridge · Your decisions, your responsibility.
         </p>
       </div>
     </footer>
+
+    <!-- Simple client-side demo handling for forms -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const forms = document.querySelectorAll(".js-demo-form");
+
+        forms.forEach((form) => {
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (!form.reportValidity()) return;
+
+            const type = form.getAttribute("data-type") || "form";
+            const status = form.querySelector(".form-status");
+            if (!status) return;
+
+            status.textContent =
+              "Request sent (demo). In a live version, this " +
+              type +
+              " would be forwarded securely to AmicBridge.";
+            status.classList.add("form-status--success");
+          });
+        });
+      });
+    </script>
   </body>
 
   <style>
@@ -327,6 +584,7 @@ const year = new Date().getFullYear();
       display: flex;
       gap: 1rem;
       font-size: 0.9rem;
+      flex-wrap: wrap;
     }
 
     .nav-link {
@@ -434,6 +692,60 @@ const year = new Date().getFullYear();
       padding: 2.5rem 0 3rem;
     }
 
+    .section-alt {
+      background: rgba(15, 23, 42, 0.75);
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-lead {
+      color: #cbd5f5;
+      font-size: 0.95rem;
+      margin-bottom: 1.4rem;
+      max-width: 42rem;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    .how-step {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .how-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #c7d2fe;
+      margin-top: 0.15rem;
+    }
+
+    .how-step h3 {
+      margin: 0 0 0.2rem;
+      font-size: 1rem;
+    }
+
+    .how-step p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -512,6 +824,108 @@ const year = new Date().getFullYear();
       gap: 0.6rem;
     }
 
+    .form-status {
+      min-height: 1em;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.1rem;
+    }
+
+    .form-status--success {
+      color: #4ade80;
+    }
+
+    .trust-list {
+      list-style: disc;
+      padding-left: 1.3rem;
+      color: #e5e7eb;
+      font-size: 0.92rem;
+    }
+
+    .trust-list li {
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.7rem;
+      max-width: 46rem;
+    }
+
+    .faq-item {
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .faq-item p {
+      margin-top: 0.4rem;
+      font-size: 0.86rem;
+      color: #cbd5f5;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+      gap: 1.7rem;
+      align-items: flex-start;
+    }
+
+    .contact-card {
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.9rem 1rem;
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.9rem;
+    }
+
+    .contact-card a {
+      color: #a5b4fc;
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-note {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.4rem;
+    }
+
+    .contact-form-title {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .legal-section {
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(2, 6, 23, 0.95);
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .legal-grid h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
     .footer {
       border-top: 1px solid rgba(148, 163, 184, 0.35);
       padding: 1.2rem 0 1.5rem;
@@ -547,7 +961,10 @@ const year = new Date().getFullYear();
         flex-wrap: wrap;
       }
 
-      .cards-grid {
+      .how-grid,
+      .cards-grid,
+      .legal-grid,
+      .contact-grid {
         grid-template-columns: minmax(0, 1fr);
       }
 
