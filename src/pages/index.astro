@@ -539,8 +539,13 @@
 
         <div class="contact-grid">
           <div class="card">
-            <!-- CHANGED action TO send-request.php -->
-            <form id="contact-form" method="post" action="send-request.php">
+            <!-- FORM WIRED TO FORMSPREE -->
+            <form
+              id="contact-form"
+              method="post"
+              action="https://formspree.io/f/xgvgloep"
+            >
+              <input type="hidden" name="_subject" value="New AmicBridge network request" />
 
               <div class="field">
                 <label for="intent">I am mainly interested in</label>
@@ -612,11 +617,6 @@
               <div class="form-note">
                 This example form does not create an account, offer, contract or any promise of funding.
                 Please do not include sensitive data (ID numbers, passwords, private keys, seed phrases, etc.).
-              </div>
-
-              <div class="form-success" id="form-success">
-                <!-- This will not be used now; PHP returns its own thank-you page -->
-                Thank you. Your request has been recorded on this example page.
               </div>
             </form>
           </div>
@@ -692,8 +692,7 @@
     .addEventListener("click", function () {
       goToContact("");
     });
-
-  // NOTE: removed the e.preventDefault() submit handler so form can really submit
+  // no custom submit handler here – Formspree handles the POST
 </script>
 </body>
 </html>
