@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>AmicBridge – A private bridge between borrowers, lenders and business partners</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AmicBridge is a private peer-to-peer network. We connect people who want to lend, borrow or invest on their own terms, with a strong focus on identity, clarity and trust.">
+  <meta name="description" content="AmicBridge is a private peer-to-peer network. We connect people who want to lend, borrow, invest or learn strategy on their own terms, with a strong focus on identity, clarity and trust.">
   <style>
     :root {
       --bg: #f5f5f7;
@@ -45,8 +45,6 @@
       margin: 0 auto;
       padding: 0 1.5rem;
     }
-
-    /* Header / nav */
 
     header {
       position: sticky;
@@ -138,8 +136,6 @@
     }
 
     .nav-cta .btn-small:hover { background: #f3f4f6; }
-
-    /* Hero */
 
     .hero {
       background: var(--surface);
@@ -235,8 +231,6 @@
       line-height: 1.5;
     }
 
-    /* Sections */
-
     .section {
       margin-bottom: 3rem;
     }
@@ -276,8 +270,6 @@
     }
 
     .card-simple li { margin-bottom: 0.25rem; }
-
-    /* Contact / form */
 
     .contact-grid {
       display: grid;
@@ -355,17 +347,6 @@
       margin-top: 0.4rem;
     }
 
-    .form-success {
-      display: none;
-      margin-top: 0.7rem;
-      font-size: 0.85rem;
-      color: #166534;
-      background: #ecfdf3;
-      border-radius: 8px;
-      padding: 0.6rem 0.75rem;
-      border: 1px solid #bbf7d0;
-    }
-
     .side-note {
       font-size: 0.9rem;
       color: var(--text-sub);
@@ -377,8 +358,6 @@
       margin-bottom: 0.4rem;
       color: #111827;
     }
-
-    /* Footer */
 
     footer {
       border-top: 1px solid var(--border);
@@ -397,8 +376,6 @@
     }
 
     footer a { color: #4b5563; }
-
-    /* Responsive */
 
     @media (max-width: 880px) {
       .contact-grid { grid-template-columns: minmax(0, 1fr); }
@@ -430,6 +407,7 @@
         <a href="#about">About</a>
         <a href="#trust">Trust &amp; profile</a>
         <a href="#business">Business &amp; profit sharing</a>
+        <a href="#strategy">Investment strategy</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-cta">
@@ -463,6 +441,9 @@
             </button>
             <button class="btn-ghost" type="button" id="btn-business-invest">
               Seek business investment / share profit
+            </button>
+            <button class="btn-ghost" type="button" id="btn-invest-strategy">
+              Ask about investment strategy
             </button>
           </div>
 
@@ -528,18 +509,44 @@
       </div>
     </section>
 
+    <!-- Separate Investment strategy section -->
+    <section class="section" id="strategy">
+      <div class="shell">
+        <h2 class="section-title">Investment strategy.</h2>
+        <p class="section-text">
+          Some members are mainly interested in how to think about investment – not just one deal. AmicBridge gives
+          people a place to explore ideas and different strategies together, while everyone keeps full control of
+          their own decisions and level of risk.
+        </p>
+
+        <div class="card-simple">
+          <h3>Learn and ask, decide for yourself</h3>
+          <p>
+            AmicBridge does not give financial advice or promise returns. Instead, members can:
+          </p>
+          <ul>
+            <li>Ask questions about how others think about risk and reward.</li>
+            <li>Discuss business ideas and long-term value.</li>
+            <li>Use shared insight to shape their own investment strategy.</li>
+          </ul>
+          <p style="margin-top:0.5rem;">
+            The goal is simple: learn before you commit, and never invest blindly.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact / request form -->
     <section class="section" id="contact">
       <div class="shell">
         <h2 class="section-title">Send a request to join the network.</h2>
         <p class="section-text">
           Use this form to signal interest in AmicBridge – whether you mainly want to borrow, lend,
-          or find partners to invest in a business and share profit together.
+          learn about investment strategy, or find partners to invest in a business and share profit together.
         </p>
 
         <div class="contact-grid">
           <div class="card">
-            <!-- FORM WIRED TO FORMSPREE -->
             <form
               id="contact-form"
               method="post"
@@ -554,6 +561,7 @@
                   <option value="Borrowing">Borrowing</option>
                   <option value="Lending">Lending</option>
                   <option value="Business investment / profit sharing">Business investment / profit sharing</option>
+                  <option value="Investment strategy / learning">Investment strategy / learning</option>
                   <option value="Both">Both borrowing and lending / investing</option>
                 </select>
               </div>
@@ -569,7 +577,7 @@
                     <option value="Investment">Investment</option>
                     <option value="Other">Other</option>
                   </select>
-                  <small>Why do you want to borrow, lend or invest?</small>
+                  <small>Why do you want to borrow, lend, invest or learn?</small>
                 </div>
                 <div>
                   <label for="currency">Preferred currency or crypto</label>
@@ -585,8 +593,8 @@
               </div>
 
               <div class="field">
-                <label for="plan">Repayment or profit-sharing plan</label>
-                <textarea id="plan" name="plan" rows="3" placeholder="How do you plan to repay or share profit? Include timeline and how you expect the money to be generated." required></textarea>
+                <label for="plan">Repayment or profit-sharing plan (or what you want to learn)</label>
+                <textarea id="plan" name="plan" rows="3" placeholder="How do you plan to repay or share profit – or what kind of investment strategy you are interested in?" required></textarea>
                 <small>The more concrete and realistic this is, the easier it is for others to trust you.</small>
               </div>
 
@@ -603,7 +611,7 @@
 
               <div class="field">
                 <label for="message">Short background</label>
-                <textarea id="message" name="message" rows="3" placeholder="Tell us briefly who you are and what kind of people you hope to connect with." required></textarea>
+                <textarea id="message" name="message" rows="3" placeholder="Tell us briefly who you are and what kind of people or opportunities you hope to connect with." required></textarea>
               </div>
 
               <div class="checkbox-row">
@@ -615,7 +623,7 @@
 
               <button class="btn-primary" type="submit" style="margin-top:0.9rem;">Send request</button>
               <div class="form-note">
-                This example form does not create an account, offer, contract or any promise of funding.
+                This form does not create an account, offer, contract or any promise of funding or returns.
                 Please do not include sensitive data (ID numbers, passwords, private keys, seed phrases, etc.).
               </div>
             </form>
@@ -630,6 +638,9 @@
             <p style="margin-top:0.6rem;">
               The platform’s job is to collect that information in a structured way so both sides can decide for themselves.
               All actual agreements, contracts and transfers stay outside the platform.
+            </p>
+            <p style="margin-top:0.8rem;">
+              AmicBridge is not a bank and does not issue financial products. All agreements happen privately between members.
             </p>
             <p style="margin-top:0.8rem;">
               <strong>Contact the founder &amp; CEO</strong><br>
@@ -659,7 +670,6 @@
 </div>
 
 <script>
-  // Year
   document.getElementById("year").textContent = new Date().getFullYear();
 
   function goToContact(intentValue) {
@@ -688,11 +698,19 @@
       goToContact("Business investment / profit sharing");
     });
 
+  document.getElementById("btn-invest-strategy")
+    .addEventListener("click", function () {
+      goToContact("Investment strategy / learning");
+      var strategy = document.getElementById("strategy");
+      if (strategy && strategy.scrollIntoView) {
+        strategy.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+
   document.getElementById("btn-join-nav")
     .addEventListener("click", function () {
       goToContact("");
     });
-  // no custom submit handler here – Formspree handles the POST
 </script>
 </body>
 </html>
