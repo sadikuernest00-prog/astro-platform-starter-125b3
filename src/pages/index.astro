@@ -399,17 +399,21 @@
   <!-- Header -->
   <header>
     <div class="shell nav" aria-label="Main navigation">
-      <a href="#" class="logo">
+      <a href="/" class="logo">
         <div class="logo-mark">A</div>
         <div class="logo-text">AmicBridge</div>
       </a>
+
+      <!-- UPDATED NAV: now includes Create profile -->
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#trust">Trust &amp; profile</a>
         <a href="#business">Business &amp; profit sharing</a>
         <a href="#strategy">Investment strategy</a>
+        <a href="/create-profile">Create profile</a>
         <a href="#contact">Contact</a>
       </nav>
+
       <div class="nav-cta">
         <a href="#contact">Sign in</a>
         <button class="btn-small" type="button" id="btn-join-nav">Join the network</button>
@@ -444,6 +448,9 @@
             </button>
             <button class="btn-ghost" type="button" id="btn-invest-strategy">
               Ask about investment strategy
+            </button>
+            <button class="btn-ghost" type="button" id="btn-create-profile">
+              Create profile
             </button>
           </div>
 
@@ -710,6 +717,12 @@
   document.getElementById("btn-join-nav")
     .addEventListener("click", function () {
       goToContact("");
+    });
+
+  // NEW: hero button to go to create-profile page
+  document.getElementById("btn-create-profile")
+    .addEventListener("click", function () {
+      window.location.href = "/create-profile";
     });
 </script>
 </body>
